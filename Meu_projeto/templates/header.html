@@ -1,8 +1,14 @@
-<header>
-    <nav>
-        <a href="{{ url_for('inicio') }}">Início</a>
-        <a href="{{ url_for('about') }}">Sobre</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('profile') }}">Perfil</a>
-    </nav>
-</header>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    </head>
+    <header>
+      <h1>Lara & juan Saúde</h1>
+        <nav>
+         <a href="{{ url_for('inicio') }}">Início</a>
+         <a href="{{ url_for('about') }}">Sobre</a>
+         <a href="{{ url_for('login') }}">Login</a>
+         <a href="{{ url_for('profile') }}">Perfil</a>
+        </nav>
+    </header>
+</html>
