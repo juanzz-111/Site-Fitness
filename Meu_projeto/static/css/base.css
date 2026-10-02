@@ -159,7 +159,7 @@ footer p {
     }
 }
 
-.base main {
+.base {
     max-width: 800px;
     margin: 50px auto;
     padding: 30px;
@@ -169,17 +169,17 @@ footer p {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.base main h1 {
+main h1 {
     color: #17251C;
     margin-bottom: 15px;
 }
 
-.base main h3 {
+main h3 {
     color: #39E66B;
     margin-bottom: 20px;
 }
 
-.base main p {
+main p {
     color: #444;
     font-size: 16px;
     line-height: 1.8;
