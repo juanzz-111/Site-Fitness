@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+Início - Saúde & Bem-Estar
+{% endblock %}
+
+{% block content %}
+
+<section class="banner">
+    <h1>Bem-Vindo ao Portal Saúde & Bem-Estar!</h1>
+
+    <p>
+        Um espaço criado para ajudar você a cuidar da saúde e praticar seus conhecimentos.
+    </p>
+</section>
+
+<section class="imc">
+    <h2>Calculadora de IMC</h2>
+
+    <p>
+        Descubra seu Índice de Massa Corporal informando
+        seu peso e sua altura.
+    </p>
+
+    <a href="{{ url_for('imc') }}">
+        Calcular meu IMC
+    </a>
+</section>
+
+{% endblock %}

@@ -1,1 +1,94 @@
-{%extends "base.html" %}
+{% extends "base.html" %}
+
+{% block title %}
+Calculadora de IMC - Saúde & Bem-Estar
+{% endblock %}
+
+{% block content %}
+
+<section class="imc-container">
+
+    <h1>Calculadora de IMC</h1>
+
+    <p>
+        Informe seus dados para realizar o cálculo do Índice de Massa Corporal.
+    </p>
+
+    <section class="imc-formulario">
+
+        <h2>Informe seus dados</h2>
+
+        <form>
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" name="peso"
+                   step="0.1" min="1" required>
+
+            <label for="altura">Altura (m):</label>
+            <input type="number" id="altura" name="altura"
+                   step="0.01" min="0.5" required>
+
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade"
+                   min="1" required>
+
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" name="sexo">
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select>
+
+            <button type="submit">
+                Calcular IMC
+            </button>
+        </form>
+
+    </section>
+
+
+    <section class="resultado-imc">
+
+        <h2>Resultado</h2>
+
+        <p>
+            Seu IMC será exibido aqui após o cálculo.
+        </p>
+
+        <!-- Depois vamos colocar o resultado aqui -->
+
+    </section>
+
+
+    <section class="informacoes-imc">
+
+        <h2>Como o IMC é calculado?</h2>
+
+        <p>
+            O IMC é calculado relacionando o peso e a altura.
+        </p>
+
+        <div class="formula">
+            <strong>IMC = Peso ÷ Altura²</strong>
+        </div>
+
+        <p>
+            O resultado deve ser interpretado considerando outros
+            fatores individuais e não deve ser utilizado isoladamente
+            para avaliar a saúde de uma pessoa.
+        </p>
+
+    </section>
+
+
+    <section class="novo-calculo">
+
+        <h2>Realizar novo cálculo</h2>
+
+        <a href="{{ url_for('imc') }}">
+            Calcular novamente
+        </a>
+
+    </section>
+
+</section>
+
+{% endblock %}

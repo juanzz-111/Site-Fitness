@@ -1,62 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icons/favicon.png') }}">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="icon"
+        type="image/png"
+        href="{{ url_for('static', filename='icons/favicon.png') }}">
 </head>
 
 <body>
     
-
     {% include 'header.html' %}
 
-    <main class="base">
+    <main>
         {% block content %}
-        <h1>Calculadora de IMC</h1>
-        <h3>Cuide da sua saúde!</h3>
-        <p>Bem-vindo à nossa Calculadora de Índice de Massa Corporal (IMC)!<br>
-             Esta ferramenta permite calcular seu IMC de forma simples e rápida, <br>
-              utilizando informações como peso e altura.
-              O IMC é uma medida<br> utilizada para relacionar o peso com a altura e ajudar 
-              a avaliar aspectos <br> da saúde. Entretanto, ele não considera todos os fatores individuais<br>
-               e não deve ser utilizado isoladamente para determinar se <br> uma pessoa está saudável.</p>
         {% endblock %}
     </main>
-    
-<aside class="imc-info">
-    {%block sidebar%}
-
-    <h2>Como calcular o IMC?</h2>
-
-    <p>
-        O Índice de Massa Corporal (IMC) é uma medida
-        que relaciona o peso com a altura de uma pessoa.
-    </p>
-
-    <p>Para calcular, utilize a seguinte fórmula:</p>
-
-    <div class="formula">
-        <strong>IMC = Peso / Altura²</strong>
-    </div>
-
-    <p>
-        Basta informar seu peso em quilogramas e sua
-        altura em metros. O resultado será o seu IMC.
-    </p>
-
-    <a href="{{ url_for('imc') }}" class="btn-imc">
-        Calcular meu IMC
-    </a>
-     {%endblock%}
-</aside>
 
     <footer>
-        <p>Site Fitness - Saúde & Bem-Estar (E meter o Shape)</p>
+        <p>Diretos Reservados</p>
     </footer>
 
 </body>
+
 </html>
