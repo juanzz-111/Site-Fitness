@@ -15,3 +15,122 @@ footer {
     text-align: center;
     padding: 20px;
 }
+
+/* Conteúdo principal da página */
+.saude-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Introdução */
+.saude-intro {
+    text-align: center;
+    padding: 35px 20px;
+    margin-bottom: 30px;
+    background-color: #e8f5e9;
+    border-radius: 15px;
+}
+
+.saude-intro h1 {
+    color: #1b5e20;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.saude-intro p {
+    color: #45634b;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Cartões de conteúdo */
+.saude-card {
+    background-color: #ffffff;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #2e7d32;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.saude-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.saude-card h3 {
+    color: #2e7d32;
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.saude-card p {
+    color: #444444;
+    font-size: 16px;
+    line-height: 1.8;
+    text-align: justify;
+    margin: 0;
+}
+
+/* Destaque final */
+.saude-final {
+    margin-top: 30px;
+    padding: 35px 20px;
+    background-color: #e8f5e9;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.saude-final h3 {
+    color: #1b5e20;
+    font-size: 23px;
+}
+
+.saude-final p {
+    color: #45634b;
+    line-height: 1.7;
+}
+
+/* Botão */
+.btn-saude {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 13px 25px;
+    background-color: #2e7d32;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-saude:hover {
+    background-color: #1b5e20;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .saude-container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .saude-intro h1 {
+        font-size: 24px;
+    }
+
+    .saude-card {
+        padding: 20px;
+    }
+
+    .saude-card h3 {
+        font-size: 19px;
+    }
+
+    .saude-card p {
+        font-size: 15px;
+        text-align: left;
+    }
+}
