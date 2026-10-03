@@ -1,93 +1,99 @@
 
 {% extends "base.html" %}
 
-{% block title %}Saúde e IMC{% endblock %}
+{% block title %}Sobre - Saúde & Bem-Estar{% endblock %}
 
 {% block content %}
 
-<div class="saude-container">
+<div class="sobre-container">
 
-    <div class="saude-intro">
-        <h1>Entenda mais sobre IMC e saúde corporal</h1>
+    <!-- Nossa Missão -->
+    <section class="sobre-card missao">
+        <h2>Nossa Missão</h2>
         <p>
-            Conheça a importância do Índice de Massa Corporal
-            e dos hábitos saudáveis para o seu bem-estar.
-        </p>
-    </div>
+            Nossa missão é promover a saúde e o bem-estar por meio de ferramentas digitais simples e acessíveis, que auxiliem os usuários a compreender o IMC, acompanhar suas informações e desenvolver hábitos saudáveis. Buscamos incentivar o autocuidado, a conscientização e a qualidade de vida, oferecendo recursos que contribuam para uma rotina mais equilibrada.
 
-    <section class="saude-card">
-        <h3>Saúde e Índice de Massa Corporal (IMC)</h3>
-        <p>
-            O Índice de Massa Corporal (IMC) é uma medida utilizada
-            para relacionar o peso e a altura de uma pessoa.
-            Ele pode ajudar a identificar situações que merecem
-            uma avaliação mais detalhada, mas não determina,
-            sozinho, se alguém é saudável, pois não considera
-            fatores como idade, desenvolvimento, massa muscular
-            e composição corporal.
         </p>
     </section>
 
-    <section class="saude-card">
-        <h3>Como manter uma boa saúde?</h3>
-        <p>
-            Manter a saúde vai muito além de um número na balança.
-            É importante ter uma alimentação variada e equilibrada,
-            beber água regularmente, praticar atividades físicas
-            adequadas à sua idade, dormir bem e cuidar da saúde
-            mental. Também é importante realizar consultas de
-            rotina e respeitar as necessidades individuais do corpo.
-        </p>
+    <!-- Nossa Equipe -->
+    <section class="sobre-card equipe">
+        <h2>Nossa Equipe</h2>
+
+        <div class="equipe-container">
+
+            <div class="membro">
+                <div class="avatar">J</div>
+                <h3>Juan</h3>
+                <p>Aluno</p>
+            </div>
+
+            <div class="membro">
+                <div class="avatar">L</div>
+                <h3>Lara</h3>
+                <p>Aluna</p>
+            </div>
+
+        </div>
     </section>
 
-    <section class="saude-card">
-        <h3>O que significa ter um IMC baixo?</h3>
-        <p>
-            Um IMC baixo pode estar relacionado a uma alimentação
-            insuficiente, dificuldades de absorção de nutrientes
-            ou outras condições de saúde. Em alguns casos, pode
-            indicar a necessidade de uma avaliação nutricional.
-            É importante investigar as possíveis causas com
-            um profissional, sem recorrer a dietas restritivas
-            ou mudanças alimentares por conta própria.
-        </p>
-    </section>
+    <!-- Recursos Oferecidos -->
+    <section class="sobre-card recursos">
+        <h2>Recursos Oferecidos</h2>
 
-    <section class="saude-card">
-        <h3>O que significa ter um IMC alto?</h3>
-        <p>
-            Um IMC elevado pode indicar uma relação entre peso
-            e altura que merece atenção, especialmente em adultos,
-            pois pode estar associado a determinados riscos à saúde.
-            Entretanto, ele não é suficiente para diagnosticar
-            problemas de saúde. É necessário considerar outros
-            fatores, como histórico familiar, hábitos, exames
-            e avaliação profissional.
-        </p>
-    </section>
+        <div class="recurso">
+            <span class="icone">⚖️</span>
+            <div>
+                <h3>Calculadora de IMC</h3>
+                <p>
+                    Calcule o Índice de Massa Corporal a partir
+                    do peso e da altura informados. O resultado
+                    é uma referência inicial e não substitui
+                    uma avaliação profissional.
+                </p>
+            </div>
+        </div>
 
-    <section class="saude-card">
-        <h3>A importância de manter hábitos saudáveis</h3>
-        <p>
-            O objetivo não deve ser alcançar um peso considerado
-            ideal apenas pelo IMC, mas cuidar do organismo de
-            forma integral. A alimentação adequada, o movimento,
-            o descanso e o acompanhamento profissional contribuem
-            para o crescimento, o desenvolvimento e a qualidade
-            de vida.
-        </p>
-    </section>
+        <div class="recurso">
+            <span class="icone">➗</span>
+            <div>
+                <h3>Operações Matemáticas</h3>
+                <p>
+                    Permite realizar somas, subtrações,
+                    multiplicações e divisões diretamente
+                    pelo site, exibindo os resultados
+                    de forma clara e organizada.
+                </p>
+            </div>
+        </div>
 
-    <div class="saude-final">
-        <h3>Sua saúde merece cuidado!</h3>
-        <p>
-            Pequenos hábitos no dia a dia podem contribuir
-            para uma vida mais saudável e equilibrada.
-        </p>
-        <a href="{{ url_for('imc') }}" class="btn-saude">
-            Calcular meu IMC
-        </a>
-    </div>
+        <div class="recurso">
+            <span class="icone">👤</span>
+            <div>
+                <h3>Painel de Perfil Personalizado</h3>
+                <p>
+                    Reúne os principais dados do usuário
+                    em um único painel, facilitando
+                    o acompanhamento das informações
+                    pessoais cadastradas.
+                </p>
+            </div>
+        </div>
+
+        <div class="recurso">
+            <span class="icone">🎯</span>
+            <div>
+                <h3>Acompanhamento de Metas</h3>
+                <p>
+                    Permite registrar objetivos relacionados
+                    ao bem-estar, incentivando hábitos
+                    saudáveis, como atividade física adequada,
+                    descanso e alimentação equilibrada.
+                </p>
+            </div>
+        </div>
+
+    </section>
 
 </div>
 
