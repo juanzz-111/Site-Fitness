@@ -64,3 +64,123 @@
     text-decoration: none;
     border-radius: 8px;
 }
+
+/* BANNER PRINCIPAL */
+.banner {
+    background: linear-gradient(135deg, #1b5e20, #43a047);
+    color: white;
+    text-align: center;
+    padding: 70px 30px;
+    margin: 40px auto;
+    max-width: 1100px;
+    border-radius: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* TÍTULO DO BANNER */
+.banner h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* TEXTO DO BANNER */
+.banner p {
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #e8f5e9;
+}
+
+/* SEÇÃO DA CALCULADORA */
+.imc {
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 1px solid #dce9dd;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* EFEITO DO CARTÃO */
+.imc:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* TÍTULO DA CALCULADORA */
+.imc h2 {
+    color: #2e7d32;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* TEXTO DA CALCULADORA */
+.imc p {
+    color: #555555;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+/* BOTÃO DA CALCULADORA */
+.imc a {
+    display: inline-block;
+    background-color: #2e7d32;
+    color: #ffffff;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+/* EFEITO DO BOTÃO */
+.imc a:hover {
+    background-color: #1b5e20;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .banner {
+        margin: 20px 15px;
+        padding: 50px 20px;
+    }
+
+    .banner h1 {
+        font-size: 26px;
+    }
+
+    .banner p {
+        font-size: 16px;
+    }
+
+    .imc {
+        margin: 25px 15px;
+        padding: 30px 20px;
+    }
+
+    .imc h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner h1 {
+        font-size: 22px;
+    }
+
+    .banner p {
+        font-size: 15px;
+    }
+
+    .imc {
+        padding: 25px 15px;
+    }
+}
