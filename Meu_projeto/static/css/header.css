@@ -81,3 +81,6 @@ header nav a:hover::after {
         font-size: 14px;
     }
 }
+.logo{
+    height: 100px;
+}
