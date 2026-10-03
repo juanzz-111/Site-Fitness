@@ -6,89 +6,401 @@ Calculadora de IMC - Saúde & Bem-Estar
 
 {% block content %}
 
-<section class="imc-container">
+<section class="imc-resultado">
 
-    <h1>Calculadora de IMC</h1>
+    <h1 class="titulo-imc">
+        ÍNDICE DE MASSA CORPORAL (IMC)
 
-    <p>
-        Informe seus dados para realizar o cálculo do Índice de Massa Corporal.
-    </p>
-
-    <section class="imc-formulario">
-
-        <h2>Informe seus dados</h2>
-
-        <form>
-            <label for="peso">Peso (kg):</label>
-            <input type="number" id="peso" name="peso"
-                   step="0.1" min="1" required>
-
-            <label for="altura">Altura (m):</label>
-            <input type="number" id="altura" name="altura"
-                   step="0.01" min="0.5" required>
-
-            <label for="idade">Idade:</label>
-            <input type="number" id="idade" name="idade"
-                   min="1" required>
-
-            <label for="sexo">Sexo:</label>
-            <select id="sexo" name="sexo">
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-            </select>
-
-            <button type="submit">
-                Calcular IMC
-            </button>
-        </form>
-
-    </section>
+        <span
+            class="ajuda"
+            title="O IMC é calculado dividindo o peso pela altura ao quadrado."
+        >
+            ?
+        </span>
+    </h1>
 
 
-    <section class="resultado-imc">
+    <div class="explicacao">
 
-        <h2>Resultado</h2>
+        O IMC é calculado dividindo o peso (kg)
+        pela altura ao quadrado (m).
 
-        <p>
-            Seu IMC será exibido aqui após o cálculo.
+        <br><br>
+
+        Classificação:
+
+        Magreza (&lt; 18,5),
+        Normal (18,5–24,9),
+        Sobrepeso (25–29,9)
+        e Obesidade (≥ 30).
+
+    </div>
+
+
+    {% if imc is defined %}
+
+        <!-- ========================= -->
+        <!-- DADOS INFORMADOS -->
+        <!-- ========================= -->
+
+        <p class="dados">
+
+            Peso:
+            <strong>{{ "%.1f"|format(peso) }} kg</strong>
+
+            &nbsp;|&nbsp;
+
+            Altura:
+            <strong>{{ "%.0f"|format(altura * 100) }} cm</strong>
+
+            &nbsp;|&nbsp;
+
+            Sexo:
+            <strong>
+
+                {% if sexo == 'masculino' %}
+                    Masculino
+                {% elif sexo == 'feminino' %}
+                    Feminino
+                {% else %}
+                    Não informado
+                {% endif %}
+
+            </strong>
+
+            &nbsp;|&nbsp;
+
+            Idade:
+            <strong>{{ idade }} anos</strong>
+
         </p>
 
-        <!-- Depois vamos colocar o resultado aqui -->
 
-    </section>
+        <!-- ========================= -->
+        <!-- VALOR DO IMC -->
+        <!-- ========================= -->
 
-
-    <section class="informacoes-imc">
-
-        <h2>Como o IMC é calculado?</h2>
-
-        <p>
-            O IMC é calculado relacionando o peso e a altura.
-        </p>
-
-        <div class="formula">
-            <strong>IMC = Peso ÷ Altura²</strong>
+        <div class="valor-imc">
+            {{ "%.2f"|format(imc) }}
         </div>
 
-        <p>
-            O resultado deve ser interpretado considerando outros
-            fatores individuais e não deve ser utilizado isoladamente
-            para avaliar a saúde de uma pessoa.
+
+        <!-- ========================= -->
+        <!-- CLASSIFICAÇÃO -->
+        <!-- ========================= -->
+
+        <div
+            class="
+                badge
+
+                {% if classificacao == 'Magreza' %}
+                    badge-magreza
+
+                {% elif classificacao == 'Normal' %}
+                    badge-normal
+
+                {% elif classificacao == 'Sobrepeso' %}
+                    badge-sobrepeso
+
+                {% else %}
+                    badge-obesidade
+                {% endif %}
+            "
+        >
+
+            {{ classificacao }}
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- PESO IDEAL -->
+        <!-- ========================= -->
+
+        <div class="peso-ideal">
+
+            <p>PESO IDEAL</p>
+
+            <strong>
+                {{ "%.2f"|format(peso_ideal) }} kg
+            </strong>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- RÉGUA -->
+        <!-- ========================= -->
+
+        <div class="regua-container">
+
+            <div class="regua">
+
+                <div class="faixa faixa-magreza"></div>
+
+                <div class="faixa faixa-normal"></div>
+
+                <div class="faixa faixa-sobrepeso"></div>
+
+                <div class="faixa faixa-obesidade"></div>
+
+                <div
+                    class="marcador"
+                    data-posicao="{{ posicao }}"
+                >
+                </div>
+
+            </div>
+
+
+            <div class="legendas">
+
+                <span>Magreza</span>
+
+                <span>Normal</span>
+
+                <span>Sobrepeso</span>
+
+                <span>Obesidade</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- GORDURA CORPORAL -->
+        <!-- ========================= -->
+
+        <section class="gordura">
+
+            <h2>
+                PERCENTUAL DE GORDURA CORPORAL (ESTIMADO)
+
+                <span
+                    class="ajuda"
+                    title="Estimativa realizada pela fórmula de Deurenberg, utilizando IMC, idade e sexo."
+                >
+                    ?
+                </span>
+            </h2>
+
+
+            <div class="explicacao-gordura">
+
+                Estimativa pela fórmula de Deurenberg:
+
+                <br>
+
+                % gordura =
+                1,20 × IMC +
+                0,23 × idade -
+                10,8 × sexo -
+                5,4
+
+                <br><br>
+
+                Sexo = 1 para homens
+                e 0 para mulheres.
+
+            </div>
+
+
+            <p class="descricao-gordura">
+
+                Estimativa baseada no IMC, idade e sexo.
+
+            </p>
+
+
+            <div class="percentual-gordura">
+
+                {{ "%.1f"|format(percentual_gordura) }}%
+
+            </div>
+
+
+            <div class="
+                badge-gordura
+
+                {% if classificacao_gordura == 'Essencial' %}
+                    gordura-essencial
+
+                {% elif classificacao_gordura == 'Atlético' %}
+                    gordura-atletico
+
+                {% elif classificacao_gordura == 'Fitness' %}
+                    gordura-fitness
+
+                {% elif classificacao_gordura == 'Aceitável' %}
+                    gordura-aceitavel
+
+                {% else %}
+                    gordura-obesidade
+                {% endif %}
+            ">
+
+                {{ classificacao_gordura }}
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- RECOMENDAÇÕES -->
+        <!-- ========================= -->
+
+        <section class="recomendacoes">
+
+            <h2>
+                Recomendações
+            </h2>
+
+
+            {% for recomendacao in recomendacoes %}
+
+                <p>
+                    ✓ {{ recomendacao }}
+                </p>
+
+            {% endfor %}
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- CALCULAR NOVAMENTE -->
+        <!-- ========================= -->
+
+        <section class="novo-calculo">
+
+            <h2>
+                Calcular Novamente
+            </h2>
+
+
+            <form
+                action="{{ url_for('calcular_imc') }}"
+                method="POST"
+            >
+
+                <label for="peso-novo">
+                    Peso (kg)
+                </label>
+
+                <input
+                    type="number"
+                    id="peso-novo"
+                    name="peso"
+                    step="0.1"
+                    min="1"
+                    value="{{ peso }}"
+                    required
+                >
+
+
+                <label for="altura-nova">
+                    Altura (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="altura-nova"
+                    name="altura"
+                    step="0.01"
+                    min="0.5"
+                    value="{{ altura }}"
+                    required
+                >
+
+
+                <label for="sexo-novo">
+                    Sexo
+                </label>
+
+                <select
+                    id="sexo-novo"
+                    name="sexo"
+                    required
+                >
+
+                    <option
+                        value="masculino"
+                        {% if sexo == 'masculino' %}
+                            selected
+                        {% endif %}
+                    >
+                        Masculino
+                    </option>
+
+                    <option
+                        value="feminino"
+                        {% if sexo == 'feminino' %}
+                            selected
+                        {% endif %}
+                    >
+                        Feminino
+                    </option>
+
+                </select>
+
+
+                <label for="idade-nova">
+                    Idade
+                </label>
+
+                <input
+                    type="number"
+                    id="idade-nova"
+                    name="idade"
+                    min="1"
+                    value="{{ idade }}"
+                    required
+                >
+
+
+                <button type="submit">
+                    Recalcular
+                </button>
+
+            </form>
+
+        </section>
+
+    {% else %}
+
+        <p class="sem-resultado">
+
+            Informe seus dados na página inicial
+            para calcular seu IMC.
+
         </p>
 
-    </section>
-
-
-    <section class="novo-calculo">
-
-        <h2>Realizar novo cálculo</h2>
-
-        <a href="{{ url_for('imc') }}">
-            Calcular novamente
+        <a
+            href="{{ url_for('inicio') }}"
+            class="botao-novo-calculo"
+        >
+            Voltar para o início
         </a>
 
-    </section>
+    {% endif %}
 
 </section>
+
+
+<script>
+
+    const marcador = document.querySelector(".marcador");
+
+    if (marcador) {
+
+        const posicao = marcador.dataset.posicao;
+
+        marcador.style.left = posicao + "%";
+
+    }
+
+</script>
 
 {% endblock %}

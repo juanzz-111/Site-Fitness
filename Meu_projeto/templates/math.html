@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Resultado da Operação - Saúde & Bem-Estar
+{% endblock %}
+
+{% block content %}
+
+<section class="resultado-math">
+
+    <h1>
+        Resultado da Operação: {{ operacao }}
+    </h1>
+
+    {% if resultado == 'Não é possível dividir por zero.' %}
+
+        <p class="erro">
+            {{ resultado }}
+        </p>
+
+    {% else %}
+
+        <div class="expressao">
+            <span>{{ a }}</span>
+            <span class="simbolo">{{ simbolo }}</span>
+            <span>{{ b }}</span>
+            <span>=</span>
+            <strong>{{ resultado }}</strong>
+        </div>
+
+    {% endif %}
+
+    <a href="{{ url_for('inicio') }}" class="botao-voltar">
+        Voltar para o início
+    </a>
+
+</section>
+
+{% endblock %}
