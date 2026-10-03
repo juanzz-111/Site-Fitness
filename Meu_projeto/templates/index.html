@@ -19,12 +19,60 @@ Início - Saúde & Bem-Estar
 
     <p>
         Descubra seu Índice de Massa Corporal informando
-        seu peso e sua altura.
+        seus dados abaixo.
     </p>
 
-    <a href="{{ url_for('imc') }}">
-        Calcular meu IMC
-    </a>
+    <form action="{{ url_for('calcular_imc') }}" method="POST">
+
+        <div>
+            <label for="peso">Peso (kg):</label>
+            <input
+                type="number"
+                id="peso"
+                name="peso"
+                step="0.1"
+                min="1"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="altura">Altura (m):</label>
+            <input
+                type="number"
+                id="altura"
+                name="altura"
+                step="0.01"
+                min="0.5"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="idade">Idade:</label>
+            <input
+                type="number"
+                id="idade"
+                name="idade"
+                min="1"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="sexo">Sexo:</label>
+            <select id="sexo" name="sexo" required>
+                <option value="">Selecione</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select>
+        </div>
+
+        <button type="submit">
+            Calcular meu IMC
+        </button>
+
+    </form>
 </section>
 
 {% endblock %}
