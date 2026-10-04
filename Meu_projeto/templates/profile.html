@@ -1,45 +1,133 @@
-
 {% extends "base.html" %}
 
-{% block title %}Meu Perfil{% endblock %}
+{% block title %}
+Perfil - Saúde & Bem-Estar
+{% endblock %}
 
 {% block content %}
-<div class="perfil-container">
-    <div class="perfil-cabecalho">
-        <div class="perfil-icone">👤</div>
-        <h1>Meu Perfil</h1>
-        <p>Suas informações pessoais</p>
+
+<section class="perfil">
+
+    <div class="perfil-card">
+
+        <div class="avatar">
+
+            {% if nome %}
+                {{ nome[0]|upper }}
+            {% else %}
+                U
+            {% endif %}
+
+        </div>
+
+
+        <div class="dados-usuario">
+
+            <h1>
+                {% if nome %}
+                    {{ nome }}
+                {% else %}
+                    Usuário
+                {% endif %}
+            </h1>
+
+
+            <p>
+                <strong>E-mail:</strong>
+
+                {% if email %}
+                    {{ email }}
+                {% else %}
+                    Não informado
+                {% endif %}
+            </p>
+
+
+            <p>
+                <strong>Idade:</strong>
+
+                {% if idade %}
+                    {{ idade }} anos
+                {% else %}
+                    Não informado
+                {% endif %}
+            </p>
+
+
+            <p>
+                <strong>Peso:</strong>
+
+                {% if peso %}
+                    {{ peso }} kg
+                {% else %}
+                    Não informado
+                {% endif %}
+            </p>
+
+
+            <p>
+                <strong>Altura:</strong>
+
+                {% if altura %}
+                    {{ altura }} m
+                {% else %}
+                    Não informado
+                {% endif %}
+            </p>
+
+        </div>
+
     </div>
 
-    <div class="perfil-dados">
-        <div class="dado">
-            <span>Nome</span>
-            <p>{{ nome }}</p>
-        </div>
 
-        <div class="dado">
-            <span>E-mail</span>
-            <p>{{ email }}</p>
-        </div>
+    <!-- MINHAS METAS -->
 
-        <div class="dado">
-            <span>Idade</span>
-            <p>{{ idade }} {% if idade != 'Não informado' %}anos{% endif %}</p>
-        </div>
+    <div class="metas-card">
 
-        <div class="dado">
-            <span>Peso</span>
-            <p>{{ peso }} {% if peso != 'Não informado' %}kg{% endif %}</p>
-        </div>
+        <h2>Minhas Metas</h2>
 
-        <div class="dado">
-            <span>Altura</span>
-            <p>{{ altura }} {% if altura != 'Não informado' %}m{% endif %}</p>
-        </div>
+
+        <p>
+            ✓ Calcular o IMC mensalmente
+        </p>
+
+
+        <p>
+            ✓ Praticar atividade física regularmente
+        </p>
+
+
+        <p>
+            ✓ Manter uma alimentação balanceada
+        </p>
+
+
+        <!-- CALCULAR IMC -->
+
+        {% if peso and altura and idade and sexo %}
+
+            <a
+                href="{{ url_for(
+                    'imc',
+                    peso=peso,
+                    altura=altura,
+                    sexo=sexo,
+                    idade=idade
+                ) }}"
+            >
+                Calcular meu IMC
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('inicio') }}">
+                Calcular meu IMC
+            </a>
+
+        {% endif %}
+
     </div>
 
-    <a href="{{ url_for('inicio') }}" class="botao-voltar">
-        Voltar ao início
-    </a>
-</div>
+</section>
+
 {% endblock %}

@@ -33,11 +33,26 @@ def login():
         usuario = request.form['usuario']
         senha = request.form['senha']
 
+        nome = request.form['nome']
+        email = request.form['email']
+        idade = request.form['idade']
+        peso = request.form['peso']
+        altura = request.form['altura']
+        sexo = request.form['sexo']
+
+        # Redireciona para o perfil
+        # levando todos os dados pela URL
+
         return redirect(
             url_for(
                 'profile',
-                nome=usuario,
-                email=usuario
+                nome=nome,
+                email=email,
+                idade=idade,
+                peso=peso,
+                altura=altura,
+                sexo=sexo,
+                usuario=usuario
             )
         )
 
@@ -51,11 +66,12 @@ def login():
 @app.route('/profile')
 def profile():
 
-    nome = request.args.get('nome', 'Usuário')
-    email = request.args.get('email', 'Não informado')
-    idade = request.args.get('idade', 'Não informado')
-    peso = request.args.get('peso', 'Não informado')
-    altura = request.args.get('altura', 'Não informado')
+    nome = request.args.get('nome')
+    email = request.args.get('email')
+    idade = request.args.get('idade')
+    peso = request.args.get('peso')
+    altura = request.args.get('altura')
+    sexo = request.args.get('sexo')
 
     return render_template(
         'profile.html',
@@ -63,7 +79,8 @@ def profile():
         email=email,
         idade=idade,
         peso=peso,
-        altura=altura
+        altura=altura,
+        sexo=sexo
     )
 
 
