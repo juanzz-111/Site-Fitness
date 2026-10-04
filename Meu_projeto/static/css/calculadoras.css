@@ -1,0 +1,485 @@
+
+/* ============================= */
+/* CONFIGURAÇÕES GERAIS */
+/* ============================= */
+
+.imc-resultado {
+    max-width: 850px;
+    width: 90%;
+    margin: 35px auto;
+    padding: 30px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(27, 94, 32, 0.10);
+    color: #1B5E20;
+    box-sizing: border-box;
+}
+
+/* ============================= */
+/* TÍTULO */
+/* ============================= */
+
+.titulo-imc {
+    text-align: center;
+    color: #1B5E20;
+    font-size: 27px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Ícone de ajuda */
+.ajuda {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: help;
+}
+
+/* ============================= */
+/* EXPLICAÇÃO */
+/* ============================= */
+
+.explicacao,
+.explicacao-gordura {
+    background-color: #F0F5F3;
+    border-left: 4px solid #2E7D32;
+    padding: 15px;
+    border-radius: 8px;
+    color: #1B5E20;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* ============================= */
+/* DADOS INFORMADOS */
+/* ============================= */
+
+.dados {
+    background-color: #F0F5F3;
+    padding: 15px;
+    border-radius: 8px;
+    color: #1B5E20;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.dados strong {
+    color: #2E7D32;
+}
+
+/* ============================= */
+/* VALOR DO IMC */
+/* ============================= */
+
+.valor-imc {
+    text-align: center;
+    font-size: 55px;
+    font-weight: bold;
+    color: #1B5E20;
+    margin: 15px 0;
+}
+
+/* ============================= */
+/* CLASSIFICAÇÃO */
+/* ============================= */
+
+.badge {
+    width: fit-content;
+    margin: 0 auto 25px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Cores das classificações */
+.badge-magreza {
+    background-color: #F0F5F3;
+    color: #1B5E20;
+    border: 1px solid #B8CDBB;
+}
+
+.badge-normal {
+    background-color: #2E7D32;
+    color: #FFFFFF;
+}
+
+.badge-sobrepeso {
+    background-color: #B8CDBB;
+    color: #1B5E20;
+}
+
+.badge-obesidade {
+    background-color: #1B5E20;
+    color: #FFFFFF;
+}
+
+/* ============================= */
+/* PESO IDEAL */
+/* ============================= */
+
+.peso-ideal {
+    background-color: #F0F5F3;
+    border: 1px solid #B8CDBB;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.peso-ideal p {
+    color: #2E7D32;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.peso-ideal strong {
+    color: #1B5E20;
+    font-size: 25px;
+}
+
+/* ============================= */
+/* RÉGUA DO IMC */
+/* ============================= */
+
+.regua-container {
+    margin: 30px 0;
+}
+
+.regua {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    position: relative;
+    overflow: visible;
+    border-radius: 20px;
+    background-color: #F0F5F3;
+}
+
+/* Faixas */
+.faixa {
+    height: 100%;
+}
+
+.faixa-magreza {
+    width: 25%;
+    background-color: #B8CDBB;
+    border-radius: 20px 0 0 20px;
+}
+
+.faixa-normal {
+    width: 25%;
+    background-color: #2E7D32;
+}
+
+.faixa-sobrepeso {
+    width: 25%;
+    background-color: #B8CDBB;
+}
+
+.faixa-obesidade {
+    width: 25%;
+    background-color: #1B5E20;
+    border-radius: 0 20px 20px 0;
+}
+
+/* Marcador */
+.marcador {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 30px;
+    background-color: #FFFFFF;
+    border: 3px solid #1B5E20;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+
+/* Legendas */
+.legendas {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-top: 12px;
+    color: #1B5E20;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.legendas span {
+    flex: 1;
+}
+
+/* ============================= */
+/* GORDURA CORPORAL */
+/* ============================= */
+
+.gordura {
+    margin-top: 35px;
+    padding: 22px;
+    background-color: #F0F5F3;
+    border-radius: 12px;
+    border: 1px solid #B8CDBB;
+}
+
+.gordura h2 {
+    color: #1B5E20;
+    font-size: 19px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.explicacao-gordura {
+    background-color: #FFFFFF;
+    margin-bottom: 15px;
+}
+
+.descricao-gordura {
+    color: #1B5E20;
+    font-size: 14px;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.percentual-gordura {
+    color: #1B5E20;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+}
+
+/* Classificação da gordura */
+.badge-gordura {
+    width: fit-content;
+    margin: 0 auto;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #B8CDBB;
+    color: #1B5E20;
+}
+
+.gordura-essencial {
+    background-color: #F0F5F3;
+    border: 1px solid #B8CDBB;
+    color: #1B5E20;
+}
+
+.gordura-atletico {
+    background-color: #2E7D32;
+    color: #FFFFFF;
+}
+
+.gordura-fitness {
+    background-color: #B8CDBB;
+    color: #1B5E20;
+}
+
+.gordura-aceitavel {
+    background-color: #2E7D32;
+    color: #FFFFFF;
+}
+
+.gordura-obesidade {
+    background-color: #1B5E20;
+    color: #FFFFFF;
+}
+
+/* ============================= */
+/* RECOMENDAÇÕES */
+/* ============================= */
+
+.recomendacoes {
+    margin-top: 30px;
+    padding: 22px;
+    background-color: #FFFFFF;
+    border: 1px solid #B8CDBB;
+    border-left: 5px solid #2E7D32;
+    border-radius: 10px;
+}
+
+.recomendacoes h2 {
+    color: #1B5E20;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.recomendacoes p {
+    color: #1B5E20;
+    background-color: #F0F5F3;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ============================= */
+/* CALCULAR NOVAMENTE */
+/* ============================= */
+
+.novo-calculo {
+    margin-top: 30px;
+    padding: 25px;
+    background-color: #F0F5F3;
+    border-radius: 12px;
+}
+
+.novo-calculo h2 {
+    text-align: center;
+    color: #1B5E20;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.novo-calculo form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.novo-calculo label {
+    color: #1B5E20;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.novo-calculo input,
+.novo-calculo select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #B8CDBB;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    color: #1B5E20;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.novo-calculo input:focus,
+.novo-calculo select:focus {
+    border-color: #2E7D32;
+    box-shadow: 0 0 5px rgba(46, 125, 50, 0.2);
+}
+
+/* Botão recalcular */
+.novo-calculo button {
+    margin-top: 15px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.novo-calculo button:hover {
+    background-color: #1B5E20;
+    transform: translateY(-2px);
+}
+
+/* ============================= */
+/* SEM RESULTADO */
+/* ============================= */
+
+.sem-resultado {
+    text-align: center;
+    color: #1B5E20;
+    background-color: #F0F5F3;
+    padding: 20px;
+    border-radius: 8px;
+    line-height: 1.6;
+    margin: 20px 0;
+}
+
+.botao-novo-calculo {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 12px 22px;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.botao-novo-calculo:hover {
+    background-color: #1B5E20;
+    transform: translateY(-2px);
+}
+
+/* ============================= */
+/* RESPONSIVIDADE */
+/* ============================= */
+
+@media (max-width: 600px) {
+    .imc-resultado {
+        width: 95%;
+        margin: 20px auto;
+        padding: 18px;
+    }
+
+    .titulo-imc {
+        font-size: 21px;
+    }
+
+    .valor-imc {
+        font-size: 42px;
+    }
+
+    .dados {
+        font-size: 12px;
+    }
+
+    .gordura {
+        padding: 15px;
+    }
+
+    .gordura h2 {
+        font-size: 16px;
+    }
+
+    .percentual-gordura {
+        font-size: 32px;
+    }
+
+    .legendas {
+        font-size: 10px;
+    }
+
+    .novo-calculo {
+        padding: 18px;
+    }
+
+    .recomendacoes {
+        padding: 16px;
+    }
+}

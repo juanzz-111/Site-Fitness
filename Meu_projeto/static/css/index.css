@@ -1,186 +1,143 @@
+
+/* Banner principal */
 .banner {
+    background: #1B5E20;
+    color: #FFFFFF;
     text-align: center;
-    padding: 50px 20px;
-    margin-bottom: 30px;
+    padding: 45px 20px;
+    margin: 25px auto;
+    max-width: 1100px;
+    border-radius: 12px;
 }
 
 .banner h1 {
-    font-size: 36px;
+    font-size: 30px;
     margin-bottom: 15px;
 }
 
 .banner p {
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
+/* Área das calculadoras */
+.calculadoras {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 10px;
+}
 
-.matematica {
-    max-width: 700px;
-    margin: 0 auto 30px;
-    padding: 30px;
+/* Cartões */
+.card {
+    background: #FFFFFF;
+    padding: 25px;
     border-radius: 12px;
-    background-color: #f5f5f5;
+    box-shadow: 0 4px 10px #B8CDBB;
+    flex: 1;
+    max-width: 450px;
 }
 
-.matematica h2 {
-    margin-bottom: 10px;
+/* Títulos */
+.card h2 {
+    color: #1B5E20;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.matematica form {
+/* Texto */
+.card p {
+    color: #2E7D32;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Formulários */
+.card form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.matematica input,
-.matematica select,
-.matematica button {
-    padding: 10px;
-    font-size: 16px;
-}
-
-.matematica button {
-    cursor: pointer;
-}
-
-
-.imc {
-    max-width: 700px;
-    margin: 0 auto 40px;
-    padding: 30px;
-    border-radius: 12px;
-    background-color: #f5f5f5;
-    text-align: center;
-}
-
-.imc h2 {
-    margin-bottom: 10px;
-}
-
-.imc a {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 8px;
-}
-
-/* BANNER PRINCIPAL */
-.banner {
-    background: linear-gradient(135deg, #1b5e20, #43a047);
-    color: white;
-    text-align: center;
-    padding: 70px 30px;
-    margin: 40px auto;
-    max-width: 1100px;
-    border-radius: 18px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-}
-
-/* TÍTULO DO BANNER */
-.banner h1 {
-    font-size: 34px;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
-
-/* TEXTO DO BANNER */
-.banner p {
-    font-size: 18px;
-    line-height: 1.7;
-    max-width: 700px;
-    margin: 0 auto;
-    color: #e8f5e9;
-}
-
-/* SEÇÃO DA CALCULADORA */
-.imc {
-    max-width: 750px;
-    margin: 40px auto;
-    padding: 40px 30px;
-    text-align: center;
-    background-color: #ffffff;
-    border-radius: 15px;
-    border: 1px solid #dce9dd;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* EFEITO DO CARTÃO */
-.imc:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* TÍTULO DA CALCULADORA */
-.imc h2 {
-    color: #2e7d32;
-    font-size: 28px;
-    margin-bottom: 15px;
-}
-
-/* TEXTO DA CALCULADORA */
-.imc p {
-    color: #555555;
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 25px;
-}
-
-/* BOTÃO DA CALCULADORA */
-.imc a {
-    display: inline-block;
-    background-color: #2e7d32;
-    color: #ffffff;
-    padding: 14px 30px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
+/* Rótulos */
+.card label {
+    color: #1B5E20;
     font-weight: bold;
-    transition: 0.3s ease;
+    margin-top: 5px;
 }
 
-/* EFEITO DO BOTÃO */
-.imc a:hover {
-    background-color: #1b5e20;
-    transform: scale(1.05);
+/* Campos */
+.card input,
+.card select {
+    padding: 12px;
+    border: 1px solid #B8CDBB;
+    border-radius: 8px;
+    background: #F0F5F3;
+    color: #1B5E20;
+    font-size: 15px;
 }
 
-/* RESPONSIVIDADE */
+/* Destaque dos campos */
+.card input:focus,
+.card select:focus {
+    outline: none;
+    border: 2px solid #2E7D32;
+}
+
+/* Botões */
+.card button {
+    background: #2E7D32;
+    color: #FFFFFF;
+    border: none;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+/* Efeito ao passar o mouse */
+.card button:hover {
+    background: #1B5E20;
+}
+
+/* Efeito nos cartões */
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px #B8CDBB;
+}
+
+/* Fundo da página */
+body {
+    background: #F0F5F3;
+}
+
+/* Adaptação para celulares */
 @media (max-width: 768px) {
+    .calculadoras {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 500px;
+        box-sizing: border-box;
+    }
+
     .banner {
-        margin: 20px 15px;
-        padding: 50px 20px;
+        margin: 15px;
     }
 
     .banner h1 {
-        font-size: 26px;
-    }
-
-    .banner p {
-        font-size: 16px;
-    }
-
-    .imc {
-        margin: 25px 15px;
-        padding: 30px 20px;
-    }
-
-    .imc h2 {
         font-size: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .banner h1 {
-        font-size: 22px;
-    }
-
-    .banner p {
-        font-size: 15px;
-    }
-
-    .imc {
-        padding: 25px 15px;
     }
 }
