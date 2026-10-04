@@ -1,0 +1,94 @@
+
+/* Área principal */
+.resultado-math {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 35px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título */
+.resultado-math h1 {
+    color: #1B5E20;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+/* Expressão matemática */
+.expressao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 25px 15px;
+    margin-bottom: 25px;
+    background-color: #F0F5F3;
+    border-radius: 10px;
+    font-size: 24px;
+    color: #333333;
+}
+
+/* Símbolo da operação */
+.simbolo {
+    color: #2E7D32;
+    font-weight: bold;
+}
+
+/* Resultado final */
+.expressao strong {
+    color: #1B5E20;
+    font-size: 30px;
+}
+
+/* Mensagem de erro */
+.erro {
+    padding: 15px;
+    background-color: #FFF3E0;
+    color: #B45309;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+/* Botão de voltar */
+.botao-voltar {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #2E7D32;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.botao-voltar:hover {
+    background-color: #1B5E20;
+    transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .resultado-math {
+        margin: 30px 15px;
+        padding: 25px 15px;
+    }
+
+    .resultado-math h1 {
+        font-size: 21px;
+    }
+
+    .expressao {
+        gap: 10px;
+        font-size: 20px;
+    }
+
+    .expressao strong {
+        font-size: 25px;
+    }
+}

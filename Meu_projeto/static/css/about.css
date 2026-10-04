@@ -1,0 +1,140 @@
+/*sobre*/
+
+/* Página Sobre */
+.sobre-container {
+    max-width: 1000px;
+    margin: 25px auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Cartões */
+.sobre-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.sobre-card h2 {
+    color: #1B5E20;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Nossa Missão */
+.missao p {
+    color: #333333;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Nossa Equipe */
+.equipe-container {
+    display: flex;
+    gap: 15px;
+}
+
+.membro {
+    flex: 1;
+    background-color: #f0f5f3;
+    border-radius: 8px;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.avatar {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 10px;
+    background-color: #1B5E20;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.membro h3 {
+    color: #333333;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.membro p {
+    color: #666666;
+    font-size: 12px;
+}
+
+/* Recursos */
+.recursos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.recursos h2 {
+    margin-bottom: 0;
+}
+
+.recurso {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.icone {
+    font-size: 20px;
+    min-width: 25px;
+}
+
+.recurso h3 {
+    color: #1B5E20;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.recurso p {
+    color: #444444;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .sobre-container {
+        margin: 15px auto;
+        padding: 10px;
+    }
+
+    .sobre-card {
+        padding: 15px;
+    }
+
+    .equipe-container {
+        flex-direction: column;
+    }
+
+    .membro {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    .membro h3,
+    .membro p {
+        margin: 0;
+    }
+}

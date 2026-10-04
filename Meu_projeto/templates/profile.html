@@ -1,4 +1,45 @@
-{%extends "base.html"%}
-{%block content%}
 
-{%endblock%}
+{% extends "base.html" %}
+
+{% block title %}Meu Perfil{% endblock %}
+
+{% block content %}
+<div class="perfil-container">
+    <div class="perfil-cabecalho">
+        <div class="perfil-icone">👤</div>
+        <h1>Meu Perfil</h1>
+        <p>Suas informações pessoais</p>
+    </div>
+
+    <div class="perfil-dados">
+        <div class="dado">
+            <span>Nome</span>
+            <p>{{ nome }}</p>
+        </div>
+
+        <div class="dado">
+            <span>E-mail</span>
+            <p>{{ email }}</p>
+        </div>
+
+        <div class="dado">
+            <span>Idade</span>
+            <p>{{ idade }} {% if idade != 'Não informado' %}anos{% endif %}</p>
+        </div>
+
+        <div class="dado">
+            <span>Peso</span>
+            <p>{{ peso }} {% if peso != 'Não informado' %}kg{% endif %}</p>
+        </div>
+
+        <div class="dado">
+            <span>Altura</span>
+            <p>{{ altura }} {% if altura != 'Não informado' %}m{% endif %}</p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('inicio') }}" class="botao-voltar">
+        Voltar ao início
+    </a>
+</div>
+{% endblock %}
