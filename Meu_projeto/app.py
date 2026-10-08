@@ -277,21 +277,15 @@ def imc(peso=None, altura=None):
 
     elif valor_imc < 25:
 
-        posicao = 25 + (
-            (valor_imc - 18.5) / 6.5
-        ) * 25
+        posicao = 25 + ( (valor_imc - 18.5) / 6.5 ) * 25
 
     elif valor_imc < 30:
 
-        posicao = 50 + (
-            (valor_imc - 25) / 5
-        ) * 25
+        posicao = 50 + ( (valor_imc - 25) / 5 ) * 25
 
     else:
 
-        posicao = 75 + (
-            (valor_imc - 30) / 10
-        ) * 25
+        posicao = 75 + ( (valor_imc - 30) / 10 ) * 25
 
         if posicao > 100:
             posicao = 100
