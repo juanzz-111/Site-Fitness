@@ -1,194 +1,211 @@
-/* ==========================================
-   PÁGINA DE LOGIN
-========================================== */
 
-.login-container {
-    width: 90%;
-    max-width: 520px;
-    margin: 45px auto;
-    padding: 35px 40px;
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-
-/* Título */
-
-.login-container h1 {
+/* CONFIGURAÇÕES GERAIS */
+* {
     margin: 0;
-    text-align: center;
-    font-size: 36px;
-    color: #176b58;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-
-/* Subtítulo */
-
-.login-container .subtitulo {
-    margin: 10px 0 30px;
-    text-align: center;
-    font-size: 18px;
-    color: #666;
-}
-
-
-/* ==========================================
-   FORMULÁRIO
-========================================== */
-
-.login-container form {
+body {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background: #f5f7f6;
 }
 
-
-/* Labels */
-
-.login-container label {
-    margin-top: 14px;
-    margin-bottom: 7px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #234d43;
-}
-
-
-/* Campos */
-
-.login-container input,
-.login-container select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 13px 14px;
-    border: 1px solid #b9d3c9;
-    border-radius: 8px;
-    background: #ffffff;
-    font-size: 15px;
-    outline: none;
-    transition: 0.2s;
-}
-
-
-/* Quando clicar no campo */
-
-.login-container input:focus,
-.login-container select:focus {
-    border-color: #23866e;
-    box-shadow: 0 0 0 3px rgba(35, 134, 110, 0.10);
-}
-
-
-/* ==========================================
-   SENHA + OLHO
-========================================== */
-
-.senha-container {
-    position: relative;
-    width: 100%;
-}
-
-.senha-container input {
-    padding-right: 50px;
-}
-
-
-/* Botão do olho */
-
-.botao-olho {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    width: 35px;
-    height: 35px;
-
-    border: none;
-    background: transparent;
-
-    font-size: 18px;
-    cursor: pointer;
-}
-
-
-/* ==========================================
-   CAPS LOCK
-========================================== */
-
-.caps-lock {
-    margin: 8px 0 0;
-    padding: 8px 10px;
-    border-radius: 6px;
-    background: #fff3cd;
-    color: #856404;
-    font-size: 13px;
-}
-
-
-/* ==========================================
-   DADOS DO PERFIL
-========================================== */
-
-.login-container h2 {
-    margin-top: 30px;
-    margin-bottom: 5px;
-    color: #176b58;
-    font-size: 20px;
-}
-
-.login-container .descricao {
-    margin-top: 0;
-    margin-bottom: 12px;
-    color: #777;
-    font-size: 13px;
-}
-
-
-/* ==========================================
-   BOTÃO ENTRAR
-========================================== */
-
-.botao-login {
-    width: 100%;
-    margin-top: 25px;
-    padding: 13px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #2d7d32;
+/* CABEÇALHO */
+header {
+    background: #32865f;
     color: white;
+    padding: 12px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    font-size: 17px;
+header h2 {
+    font-size: 16px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* CONTEÚDO PRINCIPAL */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+}
+
+/* CARTÃO DE LOGIN */
+.login-container {
+    background: white;
+    width: 100%;
+    max-width: 330px;
+    padding: 25px 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+}
+
+.login-container h1 {
+    font-size: 19px;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+/* CAMPOS DO FORMULÁRIO */
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #333;
     font-weight: bold;
+}
 
+.campo input {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #32865f;
+}
+
+/* CAMPO DE SENHA */
+.senha-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.senha-box:focus-within {
+    border-color: #32865f;
+}
+
+.senha-box input {
+    border: none;
+    flex: 1;
+}
+
+.senha-box input:focus {
+    outline: none;
+}
+
+.senha-box button {
+    background: none;
+    border: none;
     cursor: pointer;
-    transition: 0.2s;
+    padding: 7px;
 }
 
-.botao-login:hover {
-    background: #246728;
+/* AVISO CAPS LOCK */
+#caps-aviso {
+    display: none;
+    background: #fff2c6;
+    color: #856404;
+    padding: 9px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-top: 8px;
 }
 
-.botao-login:active {
-    transform: scale(0.99);
+/* ESQUECI A SENHA */
+.esqueci {
+    text-align: right;
+    margin-top: -5px;
+    margin-bottom: 15px;
 }
 
+.esqueci a {
+    color: #32865f;
+    font-size: 11px;
+}
 
-/* ==========================================
-   RESPONSIVO
-========================================== */
+/* MENSAGEM DE ERRO */
+.erro {
+    background: #f8d7da;
+    color: #842029;
+    padding: 9px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+}
 
-@media (max-width: 600px) {
+/* BOTÃO ENTRAR */
+.btn-entrar {
+    width: 100%;
+    padding: 11px;
+    background: #32865f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
 
-    .login-container {
-        padding: 25px 20px;
-        margin: 25px auto;
+.btn-entrar:hover {
+    background: #246b49;
+}
+
+/* RODAPÉ */
+footer {
+    background: #32865f;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    font-size: 11px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 500px) {
+    header {
+        padding: 12px 15px;
     }
 
-    .login-container h1 {
-        font-size: 30px;
+    header h2 {
+        font-size: 13px;
     }
 
+    nav a {
+        margin-left: 8px;
+        font-size: 11px;
+    }
+}
+.cadastro {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 13px;
+    color: #555;
+}
+
+.cadastro a {
+    color: #32865f;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.cadastro a:hover {
+    text-decoration: underline;
+    color: #246b49;
 }

@@ -6,236 +6,125 @@ Login - Saúde & Bem-Estar
 
 {% block content %}
 
-<section class="login-container">
+  <main>
 
-    <h1>Login</h1>
+        <div class="login-container">
 
-    <p class="subtitulo">
-        Entre na sua conta
-    </p>
+            <h1>Entrar na sua conta</h1>
 
+            {% if erro %}
+                <div class="erro">
+                    {{ erro }}
+                </div>
+            {% endif %}
 
-    <form action="{{ url_for('login') }}" method="POST">
+            <form action="{{ url_for('login') }}" method="POST">
 
-        <!-- USUÁRIO / E-MAIL -->
+                <div class="campo">
 
-        <label for="usuario">
-            Usuário ou e-mail:
-        </label>
+                    <label for="email">Usuário/E-mail</label>
 
-        <input
-            type="text"
-            id="usuario"
-            name="usuario"
-            placeholder="Digite seu usuário ou e-mail"
-            required
-        >
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Usuário/E-mail"
+                        value="{{ email or '' }}"
+                        required
+                    >
 
+                </div>
 
-        <!-- SENHA -->
+                <div class="campo">
 
-        <label for="senha">
-            Senha:
-        </label>
+                    <label for="senha">Senha</label>
 
-        <div class="senha-container">
+                    <div class="senha-box">
 
-            <input
-                type="password"
-                id="senha"
-                name="senha"
-                placeholder="Digite sua senha"
-                required
-            >
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Digite sua senha"
+                            required
+                        >
 
-            <button
-                type="button"
-                id="mostrar-senha"
-                class="botao-olho"
-                aria-label="Mostrar senha"
-            >
-                👁
-            </button>
+                        <button
+                            type="button"
+                            onclick="mostrarSenha()"
+                            id="olho"
+                            aria-label="Mostrar senha"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                    <div id="caps-aviso">
+                        ⚠ Atenção: Caps Lock ativado!
+                    </div>
+
+                </div>
+
+                <div class="esqueci">
+                    <a href="#">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="btn-entrar">
+                    Entrar
+                </button>
+
+                <div class="cadastro">
+                  <span>Ainda não possui uma conta?</span>
+                  <a href="register.html">Cadastre-se</a>
+                </div>
+                
+
+            </form>
 
         </div>
 
+    </main>
 
-        <!-- AVISO DE CAPS LOCK -->
+    <script>
 
-        <p
-            id="caps-lock"
-            class="caps-lock"
-            style="display: none;"
-        >
-            ⚠ Caps Lock está ativado.
-        </p>
+        // Mostrar e ocultar senha
+        function mostrarSenha() {
 
+            const senha = document.getElementById("senha");
+            const olho = document.getElementById("olho");
 
-        <!-- DADOS DO PERFIL -->
-
-        <h2>Dados do perfil</h2>
-
-        <p class="descricao">
-            Preencha seus dados para que eles apareçam no seu perfil.
-        </p>
-
-
-        <label for="nome">
-            Nome:
-        </label>
-
-        <input
-            type="text"
-            id="nome"
-            name="nome"
-            placeholder="Digite seu nome"
-            required
-        >
-
-
-        <label for="email">
-            E-mail:
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Digite seu e-mail"
-            required
-        >
-
-
-        <label for="idade">
-            Idade:
-        </label>
-
-        <input
-            type="number"
-            id="idade"
-            name="idade"
-            min="1"
-            required
-        >
-
-
-        <label for="peso">
-            Peso (kg):
-        </label>
-
-        <input
-            type="number"
-            id="peso"
-            name="peso"
-            step="0.1"
-            min="1"
-            required
-        >
-
-
-        <label for="altura">
-            Altura (m):
-        </label>
-
-        <input
-            type="number"
-            id="altura"
-            name="altura"
-            step="0.01"
-            min="0.5"
-            required
-        >
-
-
-        <label for="sexo">
-            Sexo:
-        </label>
-
-        <select
-            id="sexo"
-            name="sexo"
-            required
-        >
-            <option value="">Selecione</option>
-
-            <option value="masculino">
-                Masculino
-            </option>
-
-            <option value="feminino">
-                Feminino
-            </option>
-        </select>
-
-
-        <button type="submit" class="botao-login">
-            Entrar
-        </button>
-
-    </form>
-
-</section>
-
-
-<script>
-
-    // =====================================
-    // MOSTRAR / OCULTAR SENHA
-    // =====================================
-
-    const senha = document.getElementById("senha");
-    const botaoSenha = document.getElementById("mostrar-senha");
-
-    botaoSenha.addEventListener("click", function () {
-
-        if (senha.type === "password") {
-
-            senha.type = "text";
-            botaoSenha.textContent = "🙈";
-
-        } else {
-
-            senha.type = "password";
-            botaoSenha.textContent = "👁";
-
+            if (senha.type === "password") {
+                senha.type = "text";
+                olho.textContent = "🙈";
+            } else {
+                senha.type = "password";
+                olho.textContent = "👁";
+            }
         }
 
-    });
+        // Detector de Caps Lock
+        const senha = document.getElementById("senha");
+        const aviso = document.getElementById("caps-aviso");
 
+        function verificarCapsLock(event) {
 
-    // =====================================
-    // AVISO DE CAPS LOCK
-    // =====================================
+            const ativado = event.getModifierState("CapsLock");
 
-    const avisoCaps = document.getElementById("caps-lock");
-
-
-    function verificarCapsLock(event) {
-
-        if (event.getModifierState("CapsLock")) {
-
-            avisoCaps.style.display = "block";
-
-        } else {
-
-            avisoCaps.style.display = "none";
-
+            aviso.style.display = ativado ? "block" : "none";
         }
 
-    }
+        senha.addEventListener("keydown", verificarCapsLock);
+        senha.addEventListener("keyup", verificarCapsLock);
 
+        senha.addEventListener("focus", function(event) {
+            verificarCapsLock(event);
+        });
 
-    // Funciona mesmo antes de digitar
-    senha.addEventListener("keydown", verificarCapsLock);
+        senha.addEventListener("blur", function() {
+            aviso.style.display = "none";
+        });
 
-    senha.addEventListener("keyup", verificarCapsLock);
-
-    senha.addEventListener("focus", function () {
-
-        avisoCaps.style.display = "none";
-
-    });
-
-</script>
+    </script>
 
 {% endblock %}
