@@ -20,6 +20,34 @@ def inicio():
 def about():
     return render_template('about.html')
 
+# ==========================================
+# CADASTRO
+# ==========================================
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+
+    if request.method == 'POST':
+
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']
+        confirmar_senha = request.form['confirmar_senha']
+
+        # Verificar se as senhas são iguais
+        if senha != confirmar_senha:
+            return render_template(
+                'register.html',
+                erro='As senhas não são iguais.'
+            )
+
+        # Por enquanto, apenas retorna à página
+        return render_template(
+            'register.html',
+            sucesso='Cadastro recebido com sucesso!'
+        )
+
+    return render_template('register.html')
 
 # ==========================================
 # LOGIN
@@ -30,34 +58,10 @@ def login():
 
     if request.method == 'POST':
 
-        usuario = request.form['usuario']
+        email = request.form['email']
         senha = request.form['senha']
 
-        nome = request.form['nome']
-        email = request.form['email']
-        idade = request.form['idade']
-        peso = request.form['peso']
-        altura = request.form['altura']
-        sexo = request.form['sexo']
-
-        # Redireciona para o perfil
-        # levando todos os dados pela URL
-
-        return redirect(
-            url_for(
-                'profile',
-                nome=nome,
-                email=email,
-                idade=idade,
-                peso=peso,
-                altura=altura,
-                sexo=sexo,
-                usuario=usuario
-            )
-        )
-
     return render_template('login.html')
-
 
 # ==========================================
 # PERFIL

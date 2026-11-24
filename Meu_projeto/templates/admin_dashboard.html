@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}
+Perfil - Saúde & Bem-Estar
+{% endblock %}
+
+{% block content %}
+
+
+<main class="admin-main">
+
+    <div class="admin-container">
+
+        <!-- CABEÇALHO -->
+        <h1>Painel Administrativo - Gestão de Usuários</h1>
+
+        <!-- PESQUISA E BOTÃO -->
+        <div class="admin-acoes">
+
+            <input
+                type="search"
+                placeholder="⌕ Pesquisar usuário..."
+                class="pesquisa"
+                id="pesquisa"
+            >
+
+            <a href="{{ url_for('register') }}" class="btn-novo">
+                + Novo Usuário
+            </a>
+
+        </div>
+
+        <!-- TABELA DE USUÁRIOS -->
+        <div class="tabela-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Função</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-usuarios">
+
+                    <tr>
+                        <td>101</td>
+                        <td>João Pereira</td>
+                        <td>joao.pereira@email.com</td>
+                        <td>
+                            <span class="funcao comum">Comum</span>
+                        </td>
+                        <td class="acoes">
+                            <a href="#" title="Editar">✎</a>
+                            <a href="#" title="Excluir">▣</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>102</td>
+                        <td>Maria Santos</td>
+                        <td>maria.santos@email.com</td>
+                        <td>
+                            <span class="funcao comum">Comum</span>
+                        </td>
+                        <td class="acoes">
+                            <a href="#" title="Editar">✎</a>
+                            <a href="#" title="Excluir">▣</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>103</td>
+                        <td>Carlos Costa</td>
+                        <td>carlos.admin@email.com</td>
+                        <td>
+                            <span class="funcao admin">Admin</span>
+                        </td>
+                        <td class="acoes">
+                            <a href="#" title="Editar">✎</a>
+                            <a href="#" title="Excluir">▣</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>104</td>
+                        <td>Fernanda Lima</td>
+                        <td>fernanda.l@email.com</td>
+                        <td>
+                            <span class="funcao comum">Comum</span>
+                        </td>
+                        <td class="acoes">
+                            <a href="#" title="Editar">✎</a>
+                            <a href="#" title="Excluir">▣</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>105</td>
+                        <td>Patrícia Alves</td>
+                        <td>patricia.alves@email.com</td>
+                        <td>
+                            <span class="funcao admin">Admin</span>
+                        </td>
+                        <td class="acoes">
+                            <a href="#" title="Editar">✎</a>
+                            <a href="#" title="Excluir">▣</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+<!-- PESQUISA DE USUÁRIOS -->
+<script>
+
+    const pesquisa = document.getElementById("pesquisa");
+
+    pesquisa.addEventListener("input", function() {
+
+        const texto = pesquisa.value.toLowerCase();
+
+        const linhas = document.querySelectorAll(
+            "#lista-usuarios tr"
+        );
+
+        linhas.forEach(function(linha) {
+
+            const conteudo = linha.textContent.toLowerCase();
+
+            linha.style.display = conteudo.includes(texto)
+                ? ""
+                : "none";
+
+        });
+
+    });
+
+</script>
+
+
+{% endblock content %}

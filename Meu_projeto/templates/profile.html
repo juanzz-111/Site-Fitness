@@ -6,128 +6,91 @@ Perfil - Saúde & Bem-Estar
 
 {% block content %}
 
-<section class="perfil">
+<main class="perfil-main">
 
-    <div class="perfil-card">
+    <div class="perfil-container">
 
-        <div class="avatar">
+        <!-- IDENTIFICAÇÃO DO USUÁRIO -->
+        <div class="perfil-topo">
 
-            {% if nome %}
-                {{ nome[0]|upper }}
-            {% else %}
-                U
-            {% endif %}
+            <div class="avatar">
+                {{ nome[0]|upper if nome else 'M' }}
+            </div>
+
+            <div class="usuario-info">
+                <h2>{{ nome or 'Nome do Usuário' }}</h2>
+                <p>{{ email or 'email@exemplo.com' }}</p>
+            </div>
+
+            <span class="funcao">
+                Função: {{ session.get('funcao', 'Comum')|title }}
+            </span>
 
         </div>
 
+        <!-- DADOS PESSOAIS -->
+        <div class="dados-pessoais">
 
-        <div class="dados-usuario">
+            <div class="dado">
+                <span>E-mail:</span>
+                <strong>{{ email or 'Não informado' }}</strong>
+            </div>
 
-            <h1>
-                {% if nome %}
-                    {{ nome }}
-                {% else %}
-                    Usuário
-                {% endif %}
-            </h1>
+            <div class="dado">
+                <span>Peso:</span>
+                <strong>{{ peso or 'Não informado' }} kg</strong>
+            </div>
 
+            <div class="dado">
+                <span>Idade:</span>
+                <strong>{{ idade or 'Não informado' }} anos</strong>
+            </div>
 
-            <p>
-                <strong>E-mail:</strong>
+            <div class="dado">
+                <span>Altura:</span>
+                <strong>{{ altura or 'Não informado' }} m</strong>
+            </div>
 
-                {% if email %}
-                    {{ email }}
-                {% else %}
-                    Não informado
-                {% endif %}
-            </p>
+        </div>
 
+        <!-- METAS -->
+        <div class="metas">
 
-            <p>
-                <strong>Idade:</strong>
+            <h3>Minhas Metas</h3>
 
-                {% if idade %}
-                    {{ idade }} anos
-                {% else %}
-                    Não informado
-                {% endif %}
-            </p>
+            <div class="meta-item">
+                <span class="check">✓</span>
+                <p>Calcular o IMC mensalmente</p>
+            </div>
 
+            <div class="meta-item">
+                <span class="check">✓</span>
+                <p>Praticar atividade física 3x por semana</p>
+            </div>
 
-            <p>
-                <strong>Peso:</strong>
+            <div class="meta-item">
+                <span class="check">✓</span>
+                <p>Manter uma alimentação balanceada</p>
+            </div>
 
-                {% if peso %}
-                    {{ peso }} kg
-                {% else %}
-                    Não informado
-                {% endif %}
-            </p>
+        </div>
 
+        <!-- BOTÕES -->
+        <div class="perfil-botoes">
 
-            <p>
-                <strong>Altura:</strong>
+            <a href="#" class="btn-editar">
+                Editar Perfil
+            </a>
 
-                {% if altura %}
-                    {{ altura }} m
-                {% else %}
-                    Não informado
-                {% endif %}
-            </p>
+            <a href="{{ url_for('imc') }}" class="btn-imc">
+                Calcular meu IMC
+            </a>
 
         </div>
 
     </div>
 
+</main>
 
-    <!-- MINHAS METAS -->
-
-    <div class="metas-card">
-
-        <h2>Minhas Metas</h2>
-
-
-        <p>
-            ✓ Calcular o IMC mensalmente
-        </p>
-
-
-        <p>
-            ✓ Praticar atividade física regularmente
-        </p>
-
-
-        <p>
-            ✓ Manter uma alimentação balanceada
-        </p>
-
-
-        <!-- CALCULAR IMC -->
-
-        {% if peso and altura and idade and sexo %}
-
-            <a
-                href="{{ url_for(
-                    'imc',
-                    peso=peso,
-                    altura=altura,
-                    sexo=sexo,
-                    idade=idade
-                ) }}"
-            >
-                Calcular meu IMC
-            </a>
-
-        {% else %}
-
-            <a href="{{ url_for('inicio') }}">
-                Calcular meu IMC
-            </a>
-
-        {% endif %}
-
-    </div>
-
-</section>
 
 {% endblock %}

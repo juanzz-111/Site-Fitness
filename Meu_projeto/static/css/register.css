@@ -1,0 +1,118 @@
+
+/* ÁREA PRINCIPAL */
+main {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+}
+
+/* CARTÃO DE CADASTRO */
+.cadastro-container {
+    background: white;
+    width: 100%;
+    max-width: 330px;
+    padding: 22px 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* TÍTULO */
+.cadastro-container h1 {
+    text-align: center;
+    color: #176b45;
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+/* CAMPOS */
+.campo {
+    margin-bottom: 12px;
+}
+
+.campo label {
+    display: block;
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+    background: white;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: #32865f;
+}
+
+/* CAMPO DE SENHA */
+.senha-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.senha-box input {
+    border: none;
+    flex: 1;
+}
+
+.senha-box button {
+    background: none;
+    border: none;
+    padding: 7px;
+    cursor: pointer;
+}
+
+/* BOTÃO CADASTRAR */
+.btn-cadastrar {
+    width: 100%;
+    padding: 11px;
+    background: #176b45;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.btn-cadastrar:hover {
+    background: #105536;
+}
+
+/* LINK PARA LOGIN */
+.login-link {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 12px;
+    color: #555;
+}
+
+.login-link a {
+    color: #176b45;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 400px) {
+    .cadastro-container {
+        padding: 20px 15px;
+    }
+}

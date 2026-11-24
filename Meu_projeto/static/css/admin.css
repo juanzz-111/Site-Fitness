@@ -1,0 +1,182 @@
+
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ÁREA PRINCIPAL */
+
+.admin-main {
+    min-height: 80vh;
+    background: #f1f5f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+}
+
+/* CARTÃO ADMINISTRATIVO */
+
+.admin-container {
+    width: 100%;
+    max-width: 850px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.10);
+}
+
+/* TÍTULO */
+
+.admin-container h1 {
+    background: #174d32;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* PESQUISA E BOTÃO */
+
+.admin-acoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.pesquisa {
+    width: 45%;
+    padding: 9px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+}
+
+.pesquisa:focus {
+    border-color: #32865f;
+}
+
+/* NOVO USUÁRIO */
+
+.btn-novo {
+    background: #174d32;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.btn-novo:hover {
+    background: #246b49;
+}
+
+/* TABELA */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    padding: 10px 7px;
+    color: #333;
+    font-size: 12px;
+}
+
+td {
+    padding: 11px 7px;
+    font-size: 11px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+    background: #f7faf8;
+}
+
+/* IDENTIFICAÇÃO DA FUNÇÃO */
+
+.funcao {
+    padding: 4px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    color: white;
+}
+
+.comum {
+    background: #888;
+}
+
+.admin {
+    background: #32865f;
+}
+
+/* AÇÕES */
+
+.acoes {
+    white-space: nowrap;
+}
+
+.acoes a {
+    color: #333;
+    text-decoration: none;
+    font-size: 17px;
+    margin-right: 8px;
+}
+
+.acoes a:hover {
+    color: #32865f;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+
+    .admin-container {
+        padding: 12px;
+    }
+
+    .admin-container h1 {
+        font-size: 14px;
+    }
+
+    .admin-acoes {
+        gap: 8px;
+    }
+
+    .pesquisa {
+        width: 55%;
+    }
+
+    .btn-novo {
+        padding: 9px;
+        font-size: 10px;
+    }
+
+    th, td {
+        padding: 9px 6px;
+        font-size: 10px;
+    }
+
+}

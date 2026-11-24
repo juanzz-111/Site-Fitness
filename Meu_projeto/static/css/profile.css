@@ -1,160 +1,197 @@
-/* ==========================================
-   PÁGINA DE PERFIL
-========================================== */
 
-.perfil {
-    width: 90%;
-    max-width: 800px;
-    margin: 35px auto;
-}
-
-
-/* ==========================================
-   CARTÃO DO USUÁRIO
-========================================== */
-
-.perfil-card {
+/* ÁREA DO PERFIL */
+.perfil-main {
+    min-height: 80vh;
     display: flex;
-    align-items: center;
-    gap: 25px;
-
-    padding: 25px;
-
-    background: #ffffff;
-    border-radius: 12px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-}
-
-
-/* ==========================================
-   AVATAR
-========================================== */
-
-.avatar {
-    flex-shrink: 0;
-
-    width: 75px;
-    height: 75px;
-
-    display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+    background: #f5f7f6;
+}
 
-    border-radius: 50%;
+/* CARTÃO */
+.perfil-container {
+    position: relative;
+    background: white;
+    width: 100%;
+    max-width: 390px;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
 
-    background: #23866e;
+/* IDENTIFICAÇÃO */
+.perfil-topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-top: 10px;
+}
+
+/* AVATAR */
+.avatar {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    background: #4ba878;
     color: white;
-
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 30px;
     font-weight: bold;
 }
 
-
-/* ==========================================
-   DADOS DO USUÁRIO
-========================================== */
-
-.dados-usuario {
-    flex: 1;
+/* INFORMAÇÕES */
+.usuario-info h2 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
 }
 
-.dados-usuario h1 {
-    margin: 0 0 12px;
-    color: #176b58;
-    font-size: 24px;
+.usuario-info p {
+    font-size: 11px;
+    color: #777;
 }
 
-.dados-usuario p {
-    margin: 7px 0;
-    color: #555;
-    font-size: 14px;
+/* FUNÇÃO */
+.funcao {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #32865f;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 0 9px 0 7px;
+    font-size: 10px;
 }
 
-.dados-usuario strong {
-    color: #176b58;
+/* DADOS PESSOAIS */
+.dados-pessoais {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 17px;
 }
 
-
-/* ==========================================
-   CARTÃO DE METAS
-========================================== */
-
-.metas-card {
-    margin-top: 20px;
-    padding: 25px;
-
-    background: #ffffff;
-    border-radius: 12px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+.dado {
+    padding: 10px 7px;
+    font-size: 11px;
+    border-bottom: 1px solid #eee;
 }
 
-.metas-card h2 {
-    margin: 0 0 15px;
-    color: #176b58;
-    font-size: 20px;
+.dado:nth-child(odd) {
+    border-right: 1px solid #eee;
 }
 
-.metas-card p {
-    margin: 0;
-    padding: 11px 0;
-
-    border-bottom: 1px solid #eeeeee;
-
-    color: #555;
-    font-size: 14px;
-}
-
-.metas-card p:last-of-type {
+.dado:nth-child(n+3) {
     border-bottom: none;
 }
 
+.dado span {
+    color: #555;
+}
 
-/* ==========================================
-   BOTÃO DO IMC
-========================================== */
+.dado strong {
+    color: #333;
+    font-weight: normal;
+}
 
-.metas-card a {
-    display: inline-block;
+/* METAS */
+.metas {
+    margin-bottom: 20px;
+}
 
-    margin-top: 18px;
-    padding: 11px 18px;
+.metas h3 {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 10px;
+}
 
-    border-radius: 7px;
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
 
-    background: #23866e;
-    color: white;
+.meta-item p {
+    font-size: 11px;
+    color: #444;
+}
 
-    text-decoration: none;
-    font-size: 14px;
+/* MARCA DE CONCLUSÃO */
+.check {
+    background: #ccebd8;
+    color: #25814f;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    font-size: 11px;
     font-weight: bold;
+}
 
+/* BOTÕES */
+.perfil-botoes {
+    display: flex;
+    gap: 10px;
+}
+
+.perfil-botoes a {
+    flex: 1;
+    text-align: center;
+    padding: 10px 5px;
+    border-radius: 5px;
+    font-size: 11px;
+    text-decoration: none;
     transition: 0.2s;
 }
 
-.metas-card a:hover {
-    background: #176b58;
+/* EDITAR PERFIL */
+.btn-editar {
+    background: #32865f;
+    color: white;
 }
 
+.btn-editar:hover {
+    background: #246b49;
+}
 
-/* ==========================================
-   RESPONSIVO
-========================================== */
+/* CALCULAR IMC */
+.btn-imc {
+    background: white;
+    color: #32865f;
+    border: 1px solid #32865f;
+}
 
-@media (max-width: 600px) {
+.btn-imc:hover {
+    background: #eaf5ee;
+}
 
-    .perfil {
-        width: 94%;
+/* RESPONSIVIDADE */
+@media (max-width: 400px) {
+
+    .perfil-container {
+        padding: 18px 14px;
     }
 
-    .perfil-card {
-        flex-direction: column;
-        text-align: center;
+    .avatar {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
     }
 
-    .dados-usuario h1 {
-        font-size: 21px;
+    .usuario-info h2 {
+        font-size: 14px;
     }
 
+    .perfil-botoes a {
+        font-size: 10px;
+    }
 }

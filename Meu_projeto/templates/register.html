@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}
+Perfil - Saúde & Bem-Estar
+{% endblock %}
+
+{% block content %}
+
+
+<main>
+
+    <div class="cadastro-container">
+
+        <h1>Criar Nova Conta</h1>
+
+        <form action="{{ url_for('register') }}" method="POST">
+
+            <div class="campo">
+                <label for="nome">Nome Completo</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Digite seu nome"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="email">Usuário / E-mail</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+
+                <div class="senha-box">
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        required
+                    >
+
+                    <button type="button" onclick="mostrarSenha('senha')">
+                        👁
+                    </button>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="confirmar_senha">Confirmar Senha</label>
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    placeholder="Confirme sua senha"
+                    required
+                >
+            </div>
+
+            <div class="campo">
+                <label for="funcao">Função</label>
+
+                <select id="funcao" name="funcao">
+                    <option value="comum" selected>Comum</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-cadastrar">
+                Cadastrar Usuário
+            </button>
+
+        </form>
+
+        <div class="login-link">
+            Já possui conta?
+            <a href="{{ url_for('login') }}">Entrar</a>
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+    function mostrarSenha(id) {
+        const campo = document.getElementById(id);
+
+        campo.type = campo.type === "password"
+            ? "text"
+            : "password";
+    }
+</script>
+{% endblock content %}
