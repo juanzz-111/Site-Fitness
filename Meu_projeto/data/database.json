@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "id": "e2506ee8-5262-4da1-90a1-56ed9ec86ad1",
+        "nome": "Administrador",
+        "email": "unicorniosrosasfofinhos@arcoiris.com.br",
+        "senha_hash": "pbkdf2:sha256:1000000$7VAqrrS3j0rV7AV0$ba9992b575470db70cdf9e2c1de835033465059fc2c3864b2e53d04329bf0f3b",
+        "foto_perfil": "default_avatar.png",
+        "data_cadastro": "2026-11-24T00:39:19",
+        "funcao": "admin",
+        "excluido": false
+    }
+]

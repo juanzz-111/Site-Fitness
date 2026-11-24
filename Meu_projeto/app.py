@@ -1,6 +1,126 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+
+from werkzeug.security import generate_password_hash
+
+from dotenv import load_dotenv
+
+import os
+import json
+import uuid
+
+from pathlib import Path
+from datetime import datetime
+
+
+# ==========================================
+# CONFIGURAÇÕES INICIAIS
+# ==========================================
+
+BASE_DIR = Path(__file__).resolve().parent
+
+load_dotenv(BASE_DIR / '.env')
 
 app = Flask(__name__)
+
+app.secret_key = os.getenv('SECRET_KEY')
+
+if not app.secret_key:
+    raise ValueError('SECRET_KEY não configurada no arquivo .env.')
+
+
+# Caminho do banco de dados
+DATABASE_PATH = BASE_DIR / 'data' / 'database.json'
+
+
+# ==========================================
+# FUNÇÕES DO BANCO DE DADOS
+# ==========================================
+
+def carregar_usuarios():
+
+    if not DATABASE_PATH.exists():
+        return []
+
+    with open(DATABASE_PATH, 'r', encoding='utf-8') as arquivo:
+        return json.load(arquivo)
+
+
+def salvar_usuarios(usuarios):
+
+    DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(DATABASE_PATH, 'w', encoding='utf-8') as arquivo:
+
+        json.dump(
+            usuarios,
+            arquivo,
+            ensure_ascii=False,
+            indent=4
+        )
+
+
+# ==========================================
+# INICIALIZAÇÃO DO ADMINISTRADOR
+# ==========================================
+
+def inicializar_administrador():
+
+    DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    if not DATABASE_PATH.exists():
+        salvar_usuarios([])
+
+    usuarios = carregar_usuarios()
+
+    admin_nome = os.getenv('ADMIN_NAME', 'Administrador')
+    admin_email = os.getenv('ADMIN_EMAIL')
+    admin_senha = os.getenv('ADMIN_PASSWORD')
+
+    if not admin_email or not admin_senha:
+        raise ValueError(
+            'Configure ADMIN_EMAIL e ADMIN_PASSWORD no arquivo .env.'
+        )
+
+    # Verifica se já existe um administrador
+    if any(usuario.get('funcao') == 'admin' for usuario in usuarios):
+        return
+
+    # Verifica se o e-mail já está sendo utilizado
+    if any(
+        usuario.get('email', '').lower() == admin_email.lower()
+        for usuario in usuarios
+    ):
+        raise ValueError(
+            'O e-mail do administrador já pertence a outro usuário.'
+        )
+
+    novo_admin = {
+
+        'id': str(uuid.uuid4()),
+
+        'nome': admin_nome,
+
+        'email': admin_email.lower(),
+
+        'senha_hash': generate_password_hash(
+            admin_senha,
+            method='pbkdf2:sha256'
+        ),
+
+        'foto_perfil': 'default_avatar.png',
+
+        'data_cadastro': datetime.now().isoformat(timespec='seconds'),
+
+        'funcao': 'admin',
+
+        'excluido': False
+    }
+
+    usuarios.append(novo_admin)
+
+    salvar_usuarios(usuarios)
+
+    print('Administrador inicial criado com sucesso!')
 
 
 # ==========================================
@@ -387,5 +507,7 @@ def math(op, a, b):
 # ==========================================
 
 if __name__ == '__main__':
+
+    inicializar_administrador()
 
     app.run(host='0.0.0.0', port=5002, debug=True)
