@@ -14,7 +14,17 @@ Perfil - Saúde & Bem-Estar
         <div class="perfil-topo">
 
             <div class="avatar">
-                {{ nome[0]|upper if nome else 'M' }}
+
+                {% if foto_perfil %}
+                    <img
+                        src="{{ url_for('static', filename=foto_perfil) }}"
+                        alt="Foto de perfil"
+                        class="avatar-foto"
+                    >
+                {% else %}
+                    {{ nome[0]|upper if nome else 'M' }}
+                {% endif %}
+
             </div>
 
             <div class="usuario-info">
@@ -91,6 +101,5 @@ Perfil - Saúde & Bem-Estar
     </div>
 
 </main>
-
 
 {% endblock %}

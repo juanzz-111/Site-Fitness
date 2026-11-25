@@ -1,4 +1,3 @@
-
 /* ÁREA DO PERFIL */
 .perfil-main {
     min-height: 80vh;
@@ -42,6 +41,17 @@
     align-items: center;
     font-size: 30px;
     font-weight: bold;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* FOTO DE PERFIL */
+.avatar-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
 
 /* INFORMAÇÕES */

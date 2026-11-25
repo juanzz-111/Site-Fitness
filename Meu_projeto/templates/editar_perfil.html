@@ -20,7 +20,7 @@ Editar Perfil - Saúde & Bem-Estar
             <p class="mensagem-erro">{{ erro }}</p>
         {% endif %}
 
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
 
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -51,6 +51,22 @@ Editar Perfil - Saúde & Bem-Estar
                     value="{{ email if email is defined else usuario.email }}"
                     required
                 >
+
+            </div>
+
+            <!-- FOTO DE PERFIL -->
+            <div class="campo">
+
+                <label for="foto_perfil">Alterar foto de perfil</label>
+
+                <input
+                    type="file"
+                    id="foto_perfil"
+                    name="foto_perfil"
+                    accept=".png,.jpg,.jpeg,.webp"
+                >
+
+                <small>Deixe sem selecionar caso queira manter a foto atual.</small>
 
             </div>
 

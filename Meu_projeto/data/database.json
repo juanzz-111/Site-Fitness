@@ -4,7 +4,7 @@
         "nome": "Administrador",
         "email": "unicorniosrosasfofinhos@arcoiris.com.br",
         "senha_hash": "pbkdf2:sha256:1000000$7VAqrrS3j0rV7AV0$ba9992b575470db70cdf9e2c1de835033465059fc2c3864b2e53d04329bf0f3b",
-        "foto_perfil": "default_avatar.png",
+        "foto_perfil": "uploads/9086646acef24263a10bd77352a16fa3.jpg",
         "data_cadastro": "2026-11-24T00:39:19",
         "funcao": "admin",
         "excluido": false
@@ -14,9 +14,33 @@
         "nome": "Stuart",
         "email": "sg.mainstu@gmail.com",
         "senha_hash": "pbkdf2:sha256:1000000$O8CqRuFZbpKknImy$3de3706edee1f9c71751dd5f12ae32ec511810bf62ba40cc879c17651976fcb4",
-        "foto_perfil": "default_avatar.png",
+        "foto_perfil": "uploads/086433f6eae644bbbedb02590f1a3893.jpg",
         "data_cadastro": "2026-11-24T18:03:41",
         "funcao": "comum",
         "excluido": false
+    },
+    {
+        "id": "466699b3-94de-4522-bc90-da97cc7af922",
+        "nome": "Fulano",
+        "email": "fulaninho@gmail.com",
+        "senha_hash": "pbkdf2:sha256:1000000$IznY7m6vE9B82qGP$8723f2f380730cd5413f5c442414a7bec9ef49ba20e4514b744e8442bf654f91",
+        "foto_perfil": "uploads/6b5ef2d3310f4aa3ad7d503cc7843d95.jpg",
+        "data_cadastro": "2026-11-25 23:05:48",
+        "funcao": "comum",
+        "excluido": false
+    },
+    {
+        "id": "ff75f1f1-acf7-4bc2-a954-2a81fd07acf0",
+        "nome": "Sei lá",
+        "email": "naofacoideia@gmail.com",
+        "senha_hash": "pbkdf2:sha256:1000000$ttpLuGnihL7ArD7I$35f8722d28110e8ea975ad19a7de28f982258b45c23d6fdabaa5b80bba04928d",
+        "foto_perfil": "images/default_avatar.png",
+        "data_cadastro": "2026-11-25 23:18:32",
+        "funcao": "comum",
+        "excluido": false,
+        "peso": 67.0,
+        "altura": 1.67,
+        "idade": 66,
+        "sexo": "masculino"
     }
 ]
