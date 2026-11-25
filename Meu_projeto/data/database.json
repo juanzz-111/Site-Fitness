@@ -8,5 +8,15 @@
         "data_cadastro": "2026-11-24T00:39:19",
         "funcao": "admin",
         "excluido": false
+    },
+    {
+        "id": "97bb9f33-5e2d-4bf2-8b2b-e4508fcca8d3",
+        "nome": "Stuart",
+        "email": "sg.mainstu@gmail.com",
+        "senha_hash": "pbkdf2:sha256:1000000$O8CqRuFZbpKknImy$3de3706edee1f9c71751dd5f12ae32ec511810bf62ba40cc879c17651976fcb4",
+        "foto_perfil": "default_avatar.png",
+        "data_cadastro": "2026-11-24T18:03:41",
+        "funcao": "comum",
+        "excluido": false
     }
 ]

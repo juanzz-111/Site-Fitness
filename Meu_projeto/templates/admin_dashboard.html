@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}
-Perfil - Saúde & Bem-Estar
+Painel Administrativo - Saúde & Bem-Estar
 {% endblock %}
 
 {% block content %}
-
 
 <main class="admin-main">
 
@@ -13,6 +12,15 @@ Perfil - Saúde & Bem-Estar
 
         <!-- CABEÇALHO -->
         <h1>Painel Administrativo - Gestão de Usuários</h1>
+
+        <!-- ESTATÍSTICAS -->
+        <div class="admin-estatisticas">
+
+            <p>Total de usuários: {{ total_usuarios }}</p>
+            <p>Administradores: {{ total_admins }}</p>
+            <p>Usuários comuns: {{ total_comuns }}</p>
+
+        </div>
 
         <!-- PESQUISA E BOTÃO -->
         <div class="admin-acoes">
@@ -41,76 +49,78 @@ Perfil - Saúde & Bem-Estar
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>Função</th>
+                        <th>Status</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
 
                 <tbody id="lista-usuarios">
 
+                    {% for usuario in usuarios %}
+
                     <tr>
-                        <td>101</td>
-                        <td>João Pereira</td>
-                        <td>joao.pereira@email.com</td>
+
+                        <td>{{ usuario.id[:8] }}</td>
+
+                        <td>{{ usuario.nome }}</td>
+
+                        <td>{{ usuario.email }}</td>
+
                         <td>
-                            <span class="funcao comum">Comum</span>
+                            {% if usuario.funcao == 'admin' %}
+                                <span class="funcao admin">Admin</span>
+                            {% else %}
+                                <span class="funcao comum">Comum</span>
+                            {% endif %}
                         </td>
+
+                        <td>
+                            {% if usuario.excluido %}
+                                <span class="status inativo">Desativado</span>
+                            {% else %}
+                                <span class="status ativo">Ativo</span>
+                            {% endif %}
+                        </td>
+
                         <td class="acoes">
-                            <a href="#" title="Editar">✎</a>
-                            <a href="#" title="Excluir">▣</a>
+
+                            <a
+                                href="{{ url_for('editar_usuario', usuario_id=usuario.id) }}"
+                                title="Editar"
+                            >
+                                ✎
+                            </a>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('alternar_status_usuario', usuario_id=usuario.id) }}"
+                            >
+
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <button type="submit">
+                                    {% if usuario.excluido %}
+                                        Reativar
+                                    {% else %}
+                                        Desativar
+                                    {% endif %}
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="6">
+                            Nenhum usuário cadastrado.
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>102</td>
-                        <td>Maria Santos</td>
-                        <td>maria.santos@email.com</td>
-                        <td>
-                            <span class="funcao comum">Comum</span>
-                        </td>
-                        <td class="acoes">
-                            <a href="#" title="Editar">✎</a>
-                            <a href="#" title="Excluir">▣</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>103</td>
-                        <td>Carlos Costa</td>
-                        <td>carlos.admin@email.com</td>
-                        <td>
-                            <span class="funcao admin">Admin</span>
-                        </td>
-                        <td class="acoes">
-                            <a href="#" title="Editar">✎</a>
-                            <a href="#" title="Excluir">▣</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>104</td>
-                        <td>Fernanda Lima</td>
-                        <td>fernanda.l@email.com</td>
-                        <td>
-                            <span class="funcao comum">Comum</span>
-                        </td>
-                        <td class="acoes">
-                            <a href="#" title="Editar">✎</a>
-                            <a href="#" title="Excluir">▣</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>105</td>
-                        <td>Patrícia Alves</td>
-                        <td>patricia.alves@email.com</td>
-                        <td>
-                            <span class="funcao admin">Admin</span>
-                        </td>
-                        <td class="acoes">
-                            <a href="#" title="Editar">✎</a>
-                            <a href="#" title="Excluir">▣</a>
-                        </td>
-                    </tr>
+                    {% endfor %}
 
                 </tbody>
 
@@ -148,6 +158,5 @@ Perfil - Saúde & Bem-Estar
     });
 
 </script>
-
 
 {% endblock content %}

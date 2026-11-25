@@ -3,14 +3,25 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
         <title>Site Fitness</title>
     </head>
+
     <header>
-      <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
-      <h1>Lara & Juan Saúde</h1>
+        <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
+        <h1>Lara & Juan Saúde</h1>
+
         <nav>
-         <a href="{{ url_for('inicio') }}">Início</a>
-         <a href="{{ url_for('about') }}">Sobre</a>
-         <a href="{{ url_for('login') }}">Login</a>
-         <a href="{{ url_for('profile') }}">Perfil</a>
+            <a href="{{ url_for('inicio') }}">Início</a>
+            <a href="{{ url_for('about') }}">Sobre</a>
+
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('profile') }}">Perfil</a>
+
+                <form action="{{ url_for('logout') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit">Sair</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
         </nav>
     </header>
 </html>

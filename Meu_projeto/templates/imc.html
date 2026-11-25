@@ -19,7 +19,6 @@ Calculadora de IMC - Saúde & Bem-Estar
         </span>
     </h1>
 
-
     <div class="explicacao">
 
         O IMC é calculado dividindo o peso (kg)
@@ -36,13 +35,9 @@ Calculadora de IMC - Saúde & Bem-Estar
 
     </div>
 
-
     {% if imc is defined %}
 
-        <!-- ========================= -->
         <!-- DADOS INFORMADOS -->
-        <!-- ========================= -->
-
         <p class="dados">
 
             Peso:
@@ -75,33 +70,22 @@ Calculadora de IMC - Saúde & Bem-Estar
 
         </p>
 
-
-        <!-- ========================= -->
         <!-- VALOR DO IMC -->
-        <!-- ========================= -->
-
         <div class="valor-imc">
             {{ "%.2f"|format(imc) }}
         </div>
 
-
-        <!-- ========================= -->
         <!-- CLASSIFICAÇÃO -->
-        <!-- ========================= -->
-
         <div
             class="
                 badge
 
                 {% if classificacao == 'Magreza' %}
                     badge-magreza
-
                 {% elif classificacao == 'Normal' %}
                     badge-normal
-
                 {% elif classificacao == 'Sobrepeso' %}
                     badge-sobrepeso
-
                 {% else %}
                     badge-obesidade
                 {% endif %}
@@ -112,11 +96,7 @@ Calculadora de IMC - Saúde & Bem-Estar
 
         </div>
 
-
-        <!-- ========================= -->
         <!-- PESO IDEAL -->
-        <!-- ========================= -->
-
         <div class="peso-ideal">
 
             <p>PESO IDEAL</p>
@@ -127,21 +107,14 @@ Calculadora de IMC - Saúde & Bem-Estar
 
         </div>
 
-
-        <!-- ========================= -->
         <!-- RÉGUA -->
-        <!-- ========================= -->
-
         <div class="regua-container">
 
             <div class="regua">
 
                 <div class="faixa faixa-magreza"></div>
-
                 <div class="faixa faixa-normal"></div>
-
                 <div class="faixa faixa-sobrepeso"></div>
-
                 <div class="faixa faixa-obesidade"></div>
 
                 <div
@@ -152,26 +125,18 @@ Calculadora de IMC - Saúde & Bem-Estar
 
             </div>
 
-
             <div class="legendas">
 
                 <span>Magreza</span>
-
                 <span>Normal</span>
-
                 <span>Sobrepeso</span>
-
                 <span>Obesidade</span>
 
             </div>
 
         </div>
 
-
-        <!-- ========================= -->
         <!-- GORDURA CORPORAL -->
-        <!-- ========================= -->
-
         <section class="gordura">
 
             <h2>
@@ -184,7 +149,6 @@ Calculadora de IMC - Saúde & Bem-Estar
                     ?
                 </span>
             </h2>
-
 
             <div class="explicacao-gordura">
 
@@ -205,13 +169,11 @@ Calculadora de IMC - Saúde & Bem-Estar
 
             </div>
 
-
             <p class="descricao-gordura">
 
                 Estimativa baseada no IMC, idade e sexo.
 
             </p>
-
 
             <div class="percentual-gordura">
 
@@ -219,22 +181,17 @@ Calculadora de IMC - Saúde & Bem-Estar
 
             </div>
 
-
             <div class="
                 badge-gordura
 
                 {% if classificacao_gordura == 'Essencial' %}
                     gordura-essencial
-
                 {% elif classificacao_gordura == 'Atlético' %}
                     gordura-atletico
-
                 {% elif classificacao_gordura == 'Fitness' %}
                     gordura-fitness
-
                 {% elif classificacao_gordura == 'Aceitável' %}
                     gordura-aceitavel
-
                 {% else %}
                     gordura-obesidade
                 {% endif %}
@@ -246,17 +203,12 @@ Calculadora de IMC - Saúde & Bem-Estar
 
         </section>
 
-
-        <!-- ========================= -->
         <!-- RECOMENDAÇÕES -->
-        <!-- ========================= -->
-
         <section class="recomendacoes">
 
             <h2>
                 Recomendações
             </h2>
-
 
             {% for recomendacao in recomendacoes %}
 
@@ -268,22 +220,16 @@ Calculadora de IMC - Saúde & Bem-Estar
 
         </section>
 
-
-        <!-- ========================= -->
         <!-- CALCULAR NOVAMENTE -->
-        <!-- ========================= -->
-
         <section class="novo-calculo">
 
             <h2>
                 Calcular Novamente
             </h2>
 
+            <form method="POST" action="{{ url_for('calcular_imc') }}">
 
-            <form
-                action="{{ url_for('calcular_imc') }}"
-                method="POST"
-            >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                 <label for="peso-novo">
                     Peso (kg)
@@ -299,7 +245,6 @@ Calculadora de IMC - Saúde & Bem-Estar
                     required
                 >
 
-
                 <label for="altura-nova">
                     Altura (m)
                 </label>
@@ -313,7 +258,6 @@ Calculadora de IMC - Saúde & Bem-Estar
                     value="{{ altura }}"
                     required
                 >
-
 
                 <label for="sexo-novo">
                     Sexo
@@ -345,7 +289,6 @@ Calculadora de IMC - Saúde & Bem-Estar
 
                 </select>
 
-
                 <label for="idade-nova">
                     Idade
                 </label>
@@ -358,7 +301,6 @@ Calculadora de IMC - Saúde & Bem-Estar
                     value="{{ idade }}"
                     required
                 >
-
 
                 <button type="submit">
                     Recalcular
@@ -387,7 +329,6 @@ Calculadora de IMC - Saúde & Bem-Estar
     {% endif %}
 
 </section>
-
 
 <script>
 

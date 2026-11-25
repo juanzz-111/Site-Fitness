@@ -6,125 +6,126 @@ Login - Saúde & Bem-Estar
 
 {% block content %}
 
-  <main>
+<main>
 
-        <div class="login-container">
+    <div class="login-container">
 
-            <h1>Entrar na sua conta</h1>
+        <h1>Entrar na sua conta</h1>
 
-            {% if erro %}
-                <div class="erro">
-                    {{ erro }}
-                </div>
-            {% endif %}
+        {% if erro %}
+            <div class="erro">
+                {{ erro }}
+            </div>
+        {% endif %}
 
-            <form action="{{ url_for('login') }}" method="POST">
+        <form method="POST" action="{{ url_for('login') }}">
 
-                <div class="campo">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-                    <label for="email">Usuário/E-mail</label>
+            <div class="campo">
+
+                <label for="email">Usuário/E-mail</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Usuário/E-mail"
+                    value="{{ email or '' }}"
+                    required
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <label for="senha">Senha</label>
+
+                <div class="senha-box">
 
                     <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Usuário/E-mail"
-                        value="{{ email or '' }}"
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
                         required
                     >
 
-                </div>
-
-                <div class="campo">
-
-                    <label for="senha">Senha</label>
-
-                    <div class="senha-box">
-
-                        <input
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            placeholder="Digite sua senha"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            onclick="mostrarSenha()"
-                            id="olho"
-                            aria-label="Mostrar senha"
-                        >
-                            👁
-                        </button>
-
-                    </div>
-
-                    <div id="caps-aviso">
-                        ⚠ Atenção: Caps Lock ativado!
-                    </div>
+                    <button
+                        type="button"
+                        onclick="mostrarSenha()"
+                        id="olho"
+                        aria-label="Mostrar senha"
+                    >
+                        👁
+                    </button>
 
                 </div>
 
-                <div class="esqueci">
-                    <a href="#">Esqueceu a senha?</a>
+                <div id="caps-aviso">
+                    ⚠ Atenção: Caps Lock ativado!
                 </div>
 
-                <button type="submit" class="btn-entrar">
-                    Entrar
-                </button>
+            </div>
 
-                <div class="cadastro">
-                  <span>Ainda não possui uma conta?</span>
-                  <a href="{{ url_for('register') }}">Cadastre-se</a>
-                </div>
-                
+            <div class="esqueci">
+                <a href="#">Esqueceu a senha?</a>
+            </div>
 
-            </form>
+            <button type="submit" class="btn-entrar">
+                Entrar
+            </button>
 
-        </div>
+            <div class="cadastro">
+                <span>Ainda não possui uma conta?</span>
+                <a href="{{ url_for('register') }}">Cadastre-se</a>
+            </div>
 
-    </main>
+        </form>
 
-    <script>
+    </div>
 
-        // Mostrar e ocultar senha
-        function mostrarSenha() {
+</main>
 
-            const senha = document.getElementById("senha");
-            const olho = document.getElementById("olho");
+<script>
 
-            if (senha.type === "password") {
-                senha.type = "text";
-                olho.textContent = "🙈";
-            } else {
-                senha.type = "password";
-                olho.textContent = "👁";
-            }
-        }
+    // Mostrar e ocultar senha
+    function mostrarSenha() {
 
-        // Detector de Caps Lock
         const senha = document.getElementById("senha");
-        const aviso = document.getElementById("caps-aviso");
+        const olho = document.getElementById("olho");
 
-        function verificarCapsLock(event) {
-
-            const ativado = event.getModifierState("CapsLock");
-
-            aviso.style.display = ativado ? "block" : "none";
+        if (senha.type === "password") {
+            senha.type = "text";
+            olho.textContent = "🙈";
+        } else {
+            senha.type = "password";
+            olho.textContent = "👁";
         }
+    }
 
-        senha.addEventListener("keydown", verificarCapsLock);
-        senha.addEventListener("keyup", verificarCapsLock);
+    // Detector de Caps Lock
+    const senha = document.getElementById("senha");
+    const aviso = document.getElementById("caps-aviso");
 
-        senha.addEventListener("focus", function(event) {
-            verificarCapsLock(event);
-        });
+    function verificarCapsLock(event) {
 
-        senha.addEventListener("blur", function() {
-            aviso.style.display = "none";
-        });
+        const ativado = event.getModifierState("CapsLock");
 
-    </script>
+        aviso.style.display = ativado ? "block" : "none";
+    }
+
+    senha.addEventListener("keydown", verificarCapsLock);
+    senha.addEventListener("keyup", verificarCapsLock);
+
+    senha.addEventListener("focus", function(event) {
+        verificarCapsLock(event);
+    });
+
+    senha.addEventListener("blur", function() {
+        aviso.style.display = "none";
+    });
+
+</script>
 
 {% endblock %}

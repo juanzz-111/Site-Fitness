@@ -1,3 +1,6 @@
+
+/* CONFIGURAÇÕES GERAIS */
+
 * {
     box-sizing: border-box;
 }
@@ -11,8 +14,8 @@ main {
     padding: 20px;
 }
 
+/* FOOTER */
 
-/* Footer */
 .footer {
     background-color: #1B5E20;
     color: #FFFFFF;
@@ -20,7 +23,8 @@ main {
     padding: 35px 20px 0;
 }
 
-/* Conteúdo principal */
+/* CONTEÚDO PRINCIPAL */
+
 .footer-conteudo {
     max-width: 1100px;
     margin: auto;
@@ -30,14 +34,16 @@ main {
     padding-bottom: 30px;
 }
 
-/* Colunas */
+/* COLUNAS */
+
 .footer-info,
 .footer-links,
 .footer-contato {
     flex: 1;
 }
 
-/* Títulos */
+/* TÍTULOS */
+
 .footer h2 {
     color: #FFFFFF;
     font-size: 22px;
@@ -50,14 +56,16 @@ main {
     margin-bottom: 15px;
 }
 
-/* Textos */
+/* TEXTOS */
+
 .footer p {
     color: #F0F5F3;
     font-size: 14px;
     line-height: 1.7;
 }
 
-/* Links */
+/* LINKS */
+
 .footer-links {
     display: flex;
     flex-direction: column;
@@ -77,7 +85,8 @@ main {
     padding-left: 5px;
 }
 
-/* Parte inferior */
+/* PARTE INFERIOR */
+
 .footer-final {
     border-top: 1px solid #B8CDBB;
     text-align: center;
@@ -89,7 +98,8 @@ main {
     margin: 0;
 }
 
-/* Responsividade */
+/* RESPONSIVIDADE */
+
 @media (max-width: 700px) {
     .footer-conteudo {
         flex-direction: column;

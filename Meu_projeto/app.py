@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from dotenv import load_dotenv
+
+from flask_wtf.csrf import CSRFProtect
+
+from functools import wraps
 
 import os
 import json
 import uuid
+import math
 
 from pathlib import Path
 from datetime import datetime
@@ -27,6 +32,8 @@ app.secret_key = os.getenv('SECRET_KEY')
 if not app.secret_key:
     raise ValueError('SECRET_KEY não configurada no arquivo .env.')
 
+# Proteção CSRF em todos os formulários POST
+csrf = CSRFProtect(app)
 
 # Caminho do banco de dados
 DATABASE_PATH = BASE_DIR / 'data' / 'database.json'
@@ -60,6 +67,70 @@ def salvar_usuarios(usuarios):
 
 
 # ==========================================
+# PROTEÇÃO DE ACESSO
+# ==========================================
+
+def buscar_usuario_logado():
+
+    if 'user_id' not in session:
+        return None
+
+    usuarios = carregar_usuarios()
+
+    usuario = next(
+        (
+            u for u in usuarios
+            if u.get('id') == session.get('user_id')
+            and not u.get('excluido', False)
+        ),
+        None
+    )
+
+    return usuario
+
+
+def login_required(func):
+
+    @wraps(func)
+    def verificar_login(*args, **kwargs):
+
+        usuario = buscar_usuario_logado()
+
+        if usuario is None:
+            session.clear()
+            return redirect(url_for('login'))
+
+        session['email'] = usuario['email']
+        session['funcao'] = usuario['funcao']
+
+        return func(*args, **kwargs)
+
+    return verificar_login
+
+
+def admin_required(func):
+
+    @wraps(func)
+    def verificar_admin(*args, **kwargs):
+
+        usuario = buscar_usuario_logado()
+
+        if usuario is None:
+            session.clear()
+            return redirect(url_for('login'))
+
+        session['email'] = usuario['email']
+        session['funcao'] = usuario['funcao']
+
+        if usuario.get('funcao') != 'admin':
+            return 'Acesso negado: somente administradores podem acessar esta página.', 403
+
+        return func(*args, **kwargs)
+
+    return verificar_admin
+
+
+# ==========================================
 # INICIALIZAÇÃO DO ADMINISTRADOR
 # ==========================================
 
@@ -81,26 +152,55 @@ def inicializar_administrador():
             'Configure ADMIN_EMAIL e ADMIN_PASSWORD no arquivo .env.'
         )
 
-    # Verifica se já existe um administrador
-    if any(usuario.get('funcao') == 'admin' for usuario in usuarios):
-        return
+    admin_email = admin_email.strip().lower()
 
-    # Verifica se o e-mail já está sendo utilizado
+    # Verifica se já existe um administrador ativo
     if any(
-        usuario.get('email', '').lower() == admin_email.lower()
+        usuario.get('funcao') == 'admin'
+        and not usuario.get('excluido', False)
         for usuario in usuarios
     ):
-        raise ValueError(
-            'O e-mail do administrador já pertence a outro usuário.'
-        )
+        return
 
+    # Verifica se o e-mail já pertence a algum usuário
+    usuario_existente = next(
+        (
+            usuario for usuario in usuarios
+            if usuario.get('email', '').lower() == admin_email
+        ),
+        None
+    )
+
+    # Se já existe uma conta administrativa desativada,
+    # reativa essa conta usando as credenciais do .env.
+    if usuario_existente is not None:
+
+        if usuario_existente.get('funcao') != 'admin':
+            raise ValueError(
+                'O e-mail do administrador já pertence a outro usuário.'
+            )
+
+        usuario_existente['nome'] = admin_nome
+        usuario_existente['senha_hash'] = generate_password_hash(
+            admin_senha,
+            method='pbkdf2:sha256'
+        )
+        usuario_existente['excluido'] = False
+
+        salvar_usuarios(usuarios)
+
+        print('Administrador existente reativado com sucesso!')
+
+        return
+
+    # Criar novo administrador
     novo_admin = {
 
         'id': str(uuid.uuid4()),
 
         'nome': admin_nome,
 
-        'email': admin_email.lower(),
+        'email': admin_email,
 
         'senha_hash': generate_password_hash(
             admin_senha,
@@ -129,6 +229,7 @@ def inicializar_administrador():
 
 @app.route('/')
 def inicio():
+
     return render_template('index.html')
 
 
@@ -138,10 +239,12 @@ def inicio():
 
 @app.route('/about')
 def about():
+
     return render_template('about.html')
 
+
 # ==========================================
-# CADASTRO
+# CADASTRO DE USUÁRIOS
 # ==========================================
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -149,25 +252,83 @@ def register():
 
     if request.method == 'POST':
 
-        nome = request.form['nome']
-        email = request.form['email']
-        senha = request.form['senha']
-        confirmar_senha = request.form['confirmar_senha']
+        nome = request.form.get('nome', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        senha = request.form.get('senha', '')
+        confirmar_senha = request.form.get('confirmar_senha', '')
+
+        # Verificar se todos os campos foram preenchidos
+        if not nome or not email or not senha or not confirmar_senha:
+
+            return render_template(
+                'register.html',
+                erro='Preencha todos os campos.',
+                nome=nome,
+                email=email
+            )
 
         # Verificar se as senhas são iguais
         if senha != confirmar_senha:
+
             return render_template(
                 'register.html',
-                erro='As senhas não são iguais.'
+                erro='As senhas não são iguais.',
+                nome=nome,
+                email=email
             )
 
-        # Por enquanto, apenas retorna à página
+        usuarios = carregar_usuarios()
+
+        # Verificar se o e-mail já está cadastrado
+        if any(
+            usuario.get('email', '').lower() == email
+            for usuario in usuarios
+        ):
+
+            return render_template(
+                'register.html',
+                erro='Este e-mail já está cadastrado.',
+                nome=nome,
+                email=email
+            )
+
+        # Criar novo usuário
+        novo_usuario = {
+
+            'id': str(uuid.uuid4()),
+
+            'nome': nome,
+
+            'email': email,
+
+            'senha_hash': generate_password_hash(
+                senha,
+                method='pbkdf2:sha256'
+            ),
+
+            'foto_perfil': 'default_avatar.png',
+
+            'data_cadastro': datetime.now().isoformat(timespec='seconds'),
+
+            # Cadastro público sempre cria usuário comum
+            'funcao': 'comum',
+
+            'excluido': False
+        }
+
+        # Adicionar usuário à lista
+        usuarios.append(novo_usuario)
+
+        # Salvar no JSON
+        salvar_usuarios(usuarios)
+
         return render_template(
             'register.html',
-            sucesso='Cadastro recebido com sucesso!'
+            sucesso='Cadastro realizado com sucesso!'
         )
 
     return render_template('register.html')
+
 
 # ==========================================
 # LOGIN
@@ -178,34 +339,363 @@ def login():
 
     if request.method == 'POST':
 
-        email = request.form['email']
-        senha = request.form['senha']
+        email = request.form.get('email', '').strip().lower()
+        senha = request.form.get('senha', '')
+
+        usuarios = carregar_usuarios()
+
+        # Procurar usuário pelo e-mail
+        usuario = next(
+            (
+                u for u in usuarios
+                if u.get('email', '').lower() == email
+            ),
+            None
+        )
+
+        # Verificar se o usuário existe e está ativo
+        if usuario is None or usuario.get('excluido', False):
+
+            return render_template(
+                'login.html',
+                erro='E-mail ou senha incorretos.',
+                email=email
+            )
+
+        # Verificar a senha
+        if not check_password_hash(usuario['senha_hash'], senha):
+
+            return render_template(
+                'login.html',
+                erro='E-mail ou senha incorretos.',
+                email=email
+            )
+
+        # Criar sessão do usuário
+        session.clear()
+
+        session['user_id'] = usuario['id']
+        session['email'] = usuario['email']
+        session['funcao'] = usuario['funcao']
+
+        # Redirecionar para a página inicial
+        return redirect(url_for('inicio'))
 
     return render_template('login.html')
 
+
 # ==========================================
-# PERFIL
+# LOGOUT
+# ==========================================
+
+@app.route('/logout', methods=['POST'])
+@login_required
+def logout():
+
+    session.clear()
+
+    return redirect(url_for('login'))
+
+
+# ==========================================
+# PERFIL DO USUÁRIO
 # ==========================================
 
 @app.route('/profile')
+@login_required
 def profile():
 
-    nome = request.args.get('nome')
-    email = request.args.get('email')
-    idade = request.args.get('idade')
-    peso = request.args.get('peso')
-    altura = request.args.get('altura')
-    sexo = request.args.get('sexo')
+    usuario = buscar_usuario_logado()
+
+    if usuario is None:
+        session.clear()
+        return redirect(url_for('login'))
 
     return render_template(
         'profile.html',
-        nome=nome,
-        email=email,
-        idade=idade,
-        peso=peso,
-        altura=altura,
-        sexo=sexo
+        nome=usuario['nome'],
+        email=usuario['email'],
+        foto_perfil=usuario.get('foto_perfil', 'default_avatar.png'),
+        idade=None,
+        peso=None,
+        altura=None,
+        sexo=None
     )
+
+
+# ==========================================
+# EDITAR PERFIL DO USUÁRIO
+# ==========================================
+
+@app.route('/editar_perfil', methods=['GET', 'POST'])
+@login_required
+def editar_perfil():
+
+    usuarios = carregar_usuarios()
+
+    usuario = next(
+        (
+            u for u in usuarios
+            if u.get('id') == session.get('user_id')
+            and not u.get('excluido', False)
+        ),
+        None
+    )
+
+    if usuario is None:
+        session.clear()
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+
+        nome = request.form.get('nome', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        senha = request.form.get('senha', '')
+
+        if not nome or not email:
+
+            return render_template(
+                'editar_perfil.html',
+                nome=nome,
+                email=email,
+                erro='Preencha todos os campos obrigatórios.'
+            )
+
+        email_em_uso = any(
+            u.get('email', '').lower() == email
+            and u.get('id') != usuario['id']
+            for u in usuarios
+        )
+
+        if email_em_uso:
+
+            return render_template(
+                'editar_perfil.html',
+                nome=nome,
+                email=email,
+                erro='Este e-mail já está cadastrado.'
+            )
+
+        usuario['nome'] = nome
+        usuario['email'] = email
+
+        if senha:
+
+            usuario['senha_hash'] = generate_password_hash(
+                senha,
+                method='pbkdf2:sha256'
+            )
+
+        salvar_usuarios(usuarios)
+
+        session['email'] = email
+
+        return redirect(url_for('profile'))
+
+    return render_template(
+        'editar_perfil.html',
+        nome=usuario['nome'],
+        email=usuario['email']
+    )
+
+
+# ==========================================
+# PAINEL ADMINISTRATIVO
+# ==========================================
+
+@app.route('/admin')
+@admin_required
+def admin_dashboard():
+
+    usuarios = carregar_usuarios()
+
+    # Remover informações privadas antes de enviar ao HTML
+    usuarios_visiveis = []
+
+    for usuario in usuarios:
+
+        usuarios_visiveis.append({
+
+            'id': usuario['id'],
+
+            'nome': usuario['nome'],
+
+            'email': usuario['email'],
+
+            'funcao': usuario['funcao'],
+
+            'data_cadastro': usuario['data_cadastro'],
+
+            'excluido': usuario.get('excluido', False)
+
+        })
+
+    total_usuarios = len(usuarios)
+
+    total_admins = sum(
+        1 for u in usuarios
+        if u.get('funcao') == 'admin'
+    )
+
+    total_comuns = sum(
+        1 for u in usuarios
+        if u.get('funcao') == 'comum'
+    )
+
+    return render_template(
+        'admin_dashboard.html',
+        usuarios=usuarios_visiveis,
+        total_usuarios=total_usuarios,
+        total_admins=total_admins,
+        total_comuns=total_comuns
+    )
+
+
+# ==========================================
+# EDITAR USUÁRIO PELO ADMINISTRADOR
+# ==========================================
+
+@app.route('/admin/editar/<usuario_id>', methods=['GET', 'POST'])
+@admin_required
+def editar_usuario(usuario_id):
+
+    usuarios = carregar_usuarios()
+
+    usuario = next(
+        (u for u in usuarios if u.get('id') == usuario_id),
+        None
+    )
+
+    if usuario is None:
+        return 'Usuário não encontrado.', 404
+
+    if request.method == 'POST':
+
+        nome = request.form.get('nome', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        funcao = request.form.get('funcao', '')
+
+        if not nome or not email or funcao not in ['comum', 'admin']:
+
+            return render_template(
+                'editar_perfil.html',
+                usuario=usuario,
+                modo_admin=True,
+                erro='Preencha os campos corretamente.'
+            )
+
+        email_em_uso = any(
+            u.get('email', '').lower() == email
+            and u.get('id') != usuario_id
+            for u in usuarios
+        )
+
+        if email_em_uso:
+
+            return render_template(
+                'editar_perfil.html',
+                usuario=usuario,
+                modo_admin=True,
+                erro='Este e-mail já está cadastrado.'
+            )
+
+        # Impedir que o último administrador ativo seja rebaixado
+        if (
+            usuario.get('funcao') == 'admin'
+            and funcao == 'comum'
+            and not usuario.get('excluido', False)
+        ):
+
+            outros_admins_ativos = sum(
+                1 for u in usuarios
+                if u.get('funcao') == 'admin'
+                and not u.get('excluido', False)
+                and u.get('id') != usuario_id
+            )
+
+            if outros_admins_ativos == 0:
+
+                return render_template(
+                    'editar_perfil.html',
+                    usuario=usuario,
+                    modo_admin=True,
+                    erro='Não é possível rebaixar o último administrador ativo.'
+                ), 403
+
+        usuario['nome'] = nome
+        usuario['email'] = email
+        usuario['funcao'] = funcao
+
+        salvar_usuarios(usuarios)
+
+        # Atualizar os dados da sessão se o administrador
+        # estiver editando a própria conta.
+        if usuario_id == session.get('user_id'):
+
+            session['email'] = email
+            session['funcao'] = funcao
+
+            if funcao != 'admin':
+                return redirect(url_for('profile'))
+
+        return redirect(url_for('admin_dashboard'))
+
+    return render_template(
+        'editar_perfil.html',
+        usuario=usuario,
+        modo_admin=True
+    )
+
+
+# ==========================================
+# DESATIVAR / REATIVAR USUÁRIO
+# ==========================================
+
+@app.route('/admin/alternar-status/<usuario_id>', methods=['POST'])
+@admin_required
+def alternar_status_usuario(usuario_id):
+
+    usuarios = carregar_usuarios()
+
+    usuario = next(
+        (u for u in usuarios if u.get('id') == usuario_id),
+        None
+    )
+
+    if usuario is None:
+        return 'Usuário não encontrado.', 404
+
+    # Impede o administrador de desativar a própria conta.
+    if (
+        usuario_id == session.get('user_id')
+        and not usuario.get('excluido', False)
+    ):
+
+        return 'Você não pode desativar sua própria conta.', 403
+
+    # Impede a desativação do último administrador ativo.
+    if (
+        usuario.get('funcao') == 'admin'
+        and not usuario.get('excluido', False)
+    ):
+
+        outros_admins_ativos = sum(
+            1 for u in usuarios
+            if u.get('funcao') == 'admin'
+            and not u.get('excluido', False)
+            and u.get('id') != usuario_id
+        )
+
+        if outros_admins_ativos == 0:
+
+            return 'Não é possível desativar o último administrador ativo.', 403
+
+    # Inverte o status da conta.
+    usuario['excluido'] = not usuario.get('excluido', False)
+
+    salvar_usuarios(usuarios)
+
+    return redirect(url_for('admin_dashboard'))
 
 
 # ==========================================
@@ -215,10 +705,34 @@ def profile():
 @app.route('/calcular-imc', methods=['POST'])
 def calcular_imc():
 
-    peso = float(request.form['peso'])
-    altura = float(request.form['altura'])
-    sexo = request.form['sexo']
-    idade = int(request.form['idade'])
+    try:
+
+        peso = float(request.form.get('peso', ''))
+        altura = float(request.form.get('altura', ''))
+        idade = int(request.form.get('idade', ''))
+        sexo = request.form.get('sexo', '')
+
+    except (TypeError, ValueError):
+
+        return 'Informe valores numéricos válidos para calcular o IMC.', 400
+
+    # Verificar valores numéricos
+    if not all(math.isfinite(valor) for valor in [peso, altura]):
+
+        return 'Os valores informados são inválidos.', 400
+
+    # Verificar limites dos dados
+    if peso <= 0 or peso > 500:
+        return 'Informe um peso válido.', 400
+
+    if altura <= 0 or altura > 3:
+        return 'Informe uma altura válida.', 400
+
+    if idade < 1 or idade > 120:
+        return 'Informe uma idade válida.', 400
+
+    if sexo not in ['masculino', 'feminino']:
+        return 'Selecione uma opção válida para sexo.', 400
 
     return redirect(
         url_for(
@@ -246,9 +760,24 @@ def imc(peso=None, altura=None):
     sexo = request.args.get('sexo', '')
     idade = request.args.get('idade', type=int)
 
-    # Evita erro caso os parâmetros não estejam presentes
+    # Compatibilidade com acesso direto à rota antiga
     if idade is None:
         idade = 0
+
+    # Validar os valores recebidos pela URL
+    if (
+        not math.isfinite(peso)
+        or not math.isfinite(altura)
+        or peso <= 0
+        or altura <= 0
+        or idade < 0
+        or idade > 120
+    ):
+
+        return 'Dados inválidos para o cálculo do IMC.', 400
+
+    if sexo not in ['', 'masculino', 'feminino']:
+        return 'Sexo informado inválido.', 400
 
     # ======================================
     # CÁLCULO DO IMC
@@ -257,7 +786,6 @@ def imc(peso=None, altura=None):
     valor_imc = peso / (altura ** 2)
 
     valor_imc = round(valor_imc, 2)
-
 
     # ======================================
     # CLASSIFICAÇÃO DO IMC
@@ -275,7 +803,6 @@ def imc(peso=None, altura=None):
     else:
         classificacao = 'Obesidade'
 
-
     # ======================================
     # PESO IDEAL
     # ======================================
@@ -284,17 +811,9 @@ def imc(peso=None, altura=None):
 
     peso_ideal = round(peso_ideal, 2)
 
-
     # ======================================
     # PERCENTUAL DE GORDURA
     # FÓRMULA DE DEURENBERG
-    #
-    # % gordura =
-    # 1,20 × IMC + 0,23 × idade
-    # - 10,8 × sexo - 5,4
-    #
-    # sexo = 1 homem
-    # sexo = 0 mulher
     # ======================================
 
     if sexo == 'masculino':
@@ -310,7 +829,6 @@ def imc(peso=None, altura=None):
     )
 
     percentual_gordura = round(percentual_gordura, 1)
-
 
     # ======================================
     # CLASSIFICAÇÃO DA GORDURA
@@ -349,7 +867,6 @@ def imc(peso=None, altura=None):
 
         else:
             classificacao_gordura = 'Obesidade'
-
 
     # ======================================
     # RECOMENDAÇÕES
@@ -390,7 +907,6 @@ def imc(peso=None, altura=None):
             'Procure manter hábitos de alimentação, sono e atividade física saudáveis.'
         ]
 
-
     # ======================================
     # POSIÇÃO DO MARCADOR DO IMC
     # ======================================
@@ -401,19 +917,18 @@ def imc(peso=None, altura=None):
 
     elif valor_imc < 25:
 
-        posicao = 25 + ( (valor_imc - 18.5) / 6.5 ) * 25
+        posicao = 25 + ((valor_imc - 18.5) / 6.5) * 25
 
     elif valor_imc < 30:
 
-        posicao = 50 + ( (valor_imc - 25) / 5 ) * 25
+        posicao = 50 + ((valor_imc - 25) / 5) * 25
 
     else:
 
-        posicao = 75 + ( (valor_imc - 30) / 10 ) * 25
+        posicao = 75 + ((valor_imc - 30) / 10) * 25
 
         if posicao > 100:
             posicao = 100
-
 
     return render_template(
         'imc.html',
@@ -438,9 +953,31 @@ def imc(peso=None, altura=None):
 @app.route('/calcular-math', methods=['POST'])
 def calcular_math():
 
-    operacao = request.form['operacao']
-    numero1 = float(request.form['numero1'])
-    numero2 = float(request.form['numero2'])
+    operacao = request.form.get('operacao', '')
+
+    try:
+
+        numero1 = float(request.form.get('numero1', ''))
+        numero2 = float(request.form.get('numero2', ''))
+
+    except (TypeError, ValueError):
+
+        return 'Informe dois números válidos.', 400
+
+    # Verificar valores numéricos
+    if not math.isfinite(numero1) or not math.isfinite(numero2):
+
+        return 'Os números informados são inválidos.', 400
+
+    # Verificar operação
+    if operacao not in [
+        'soma',
+        'subtracao',
+        'multiplicacao',
+        'divisao'
+    ]:
+
+        return 'Operação inválida.', 400
 
     return redirect(
         url_for(
@@ -457,7 +994,10 @@ def calcular_math():
 # ==========================================
 
 @app.route('/math/<op>/<float:a>/<float:b>')
-def math(op, a, b):
+def math_resultado(op, a, b):
+
+    if not math.isfinite(a) or not math.isfinite(b):
+        return 'Números inválidos.', 400
 
     if op == 'soma':
 
@@ -489,8 +1029,7 @@ def math(op, a, b):
 
     else:
 
-        return 'Operação inválida', 400
-
+        return 'Operação inválida.', 400
 
     return render_template(
         'math.html',
@@ -510,4 +1049,8 @@ if __name__ == '__main__':
 
     inicializar_administrador()
 
-    app.run(host='0.0.0.0', port=5002, debug=True)
+    app.run(
+        host='0.0.0.0',
+        port=5002,
+        debug=False
+    )

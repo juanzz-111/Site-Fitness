@@ -1,110 +1,74 @@
 
-/* CONFIGURAÇÕES GERAIS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #f5f7f6;
-}
-
-/* CABEÇALHO */
-header {
-    background: #32865f;
-    color: white;
-    padding: 12px 35px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h2 {
-    font-size: 16px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 12px;
-    margin-left: 20px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* CONTEÚDO PRINCIPAL */
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px 15px;
-}
+/* ==========================================
+   PÁGINA DE LOGIN
+========================================== */
 
 /* CARTÃO DE LOGIN */
+
 .login-container {
-    background: white;
+    background: #FFFFFF;
     width: 100%;
-    max-width: 330px;
-    padding: 25px 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.10);
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(27, 94, 32, 0.13);
 }
 
 .login-container h1 {
-    font-size: 19px;
-    color: #222;
-    margin-bottom: 15px;
+    font-size: 25px;
+    color: #1B5E20;
+    margin-bottom: 22px;
+    text-align: center;
 }
 
 /* CAMPOS DO FORMULÁRIO */
+
 .campo {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .campo label {
     display: block;
-    font-size: 12px;
-    margin-bottom: 5px;
-    color: #333;
+    font-size: 14px;
+    margin-bottom: 7px;
+    color: #1B5E20;
     font-weight: bold;
 }
 
 .campo input {
     width: 100%;
-    padding: 9px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 12px;
+    padding: 12px;
+    border: 1px solid #B8CDBB;
+    border-radius: 7px;
+    background: #F0F5F3;
+    font-size: 14px;
     outline: none;
 }
 
 .campo input:focus {
-    border-color: #32865f;
+    border-color: #2E7D32;
 }
 
 /* CAMPO DE SENHA */
+
 .senha-box {
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #B8CDBB;
+    border-radius: 7px;
+    background: #F0F5F3;
 }
 
 .senha-box:focus-within {
-    border-color: #32865f;
+    border-color: #2E7D32;
 }
 
 .senha-box input {
     border: none;
+    background: transparent;
     flex: 1;
+    min-width: 0;
 }
 
 .senha-box input:focus {
@@ -115,87 +79,71 @@ main {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 7px;
+    padding: 10px;
 }
 
 /* AVISO CAPS LOCK */
+
 #caps-aviso {
     display: none;
-    background: #fff2c6;
+    background: #FFF2C6;
     color: #856404;
-    padding: 9px;
-    border-radius: 4px;
-    font-size: 11px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
     margin-top: 8px;
 }
 
 /* ESQUECI A SENHA */
+
 .esqueci {
     text-align: right;
     margin-top: -5px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .esqueci a {
     color: #32865f;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 /* MENSAGEM DE ERRO */
+
 .erro {
-    background: #f8d7da;
+    background: #F8D7DA;
     color: #842029;
-    padding: 9px;
-    font-size: 12px;
-    margin-bottom: 12px;
-    border-radius: 4px;
+    padding: 12px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    border-radius: 6px;
 }
 
 /* BOTÃO ENTRAR */
+
 .btn-entrar {
     width: 100%;
-    padding: 11px;
-    background: #32865f;
-    color: white;
+    padding: 13px;
+    background: #2E7D32;
+    color: #FFFFFF;
     border: none;
-    border-radius: 5px;
+    border-radius: 7px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background 0.3s ease;
 }
 
 .btn-entrar:hover {
-    background: #246b49;
+    background: #1B5E20;
 }
 
-/* RODAPÉ */
-footer {
-    background: #32865f;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-size: 11px;
-}
+/* CADASTRO */
 
-/* RESPONSIVIDADE */
-@media (max-width: 500px) {
-    header {
-        padding: 12px 15px;
-    }
-
-    header h2 {
-        font-size: 13px;
-    }
-
-    nav a {
-        margin-left: 8px;
-        font-size: 11px;
-    }
-}
 .cadastro {
     text-align: center;
-    margin-top: 18px;
-    font-size: 13px;
-    color: #555;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555555;
 }
 
 .cadastro a {
@@ -208,4 +156,18 @@ footer {
 .cadastro a:hover {
     text-decoration: underline;
     color: #246b49;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 500px) {
+
+    .login-container {
+        margin: 20px auto;
+        padding: 25px 18px;
+    }
+
+    .login-container h1 {
+        font-size: 22px;
+    }
 }

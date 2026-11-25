@@ -1,13 +1,4 @@
 
-/* ÁREA PRINCIPAL */
-main {
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px 15px;
-}
-
 /* CARTÃO DE CADASTRO */
 .cadastro-container {
     background: white;
@@ -16,6 +7,7 @@ main {
     padding: 22px 20px;
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    margin: 30px auto;
 }
 
 /* TÍTULO */

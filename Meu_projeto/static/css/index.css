@@ -1,143 +1,189 @@
 
-/* Banner principal */
+/* ==========================================
+   PÁGINA INICIAL - SAÚDE & BEM-ESTAR
+========================================== */
+
+/* BANNER PRINCIPAL */
+
 .banner {
+    width: calc(100% - 40px);
+    max-width: 1300px;
+    margin: 32px auto 36px;
+    padding: 65px 25px;
     background: #1B5E20;
     color: #FFFFFF;
     text-align: center;
-    padding: 45px 20px;
-    margin: 25px auto;
-    max-width: 1100px;
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
 .banner h1 {
-    font-size: 30px;
-    margin-bottom: 15px;
+    font-size: 34px;
+    margin: 0 0 18px;
+    font-weight: bold;
 }
 
 .banner p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
+    margin: 0;
 }
 
-/* Área das calculadoras */
+/* ÁREA DAS CALCULADORAS */
+
 .calculadoras {
+    width: calc(100% - 40px);
+    max-width: 1100px;
+    margin: 36px auto;
     display: flex;
     justify-content: center;
-    gap: 25px;
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 10px;
+    align-items: stretch;
+    gap: 28px;
 }
 
-/* Cartões */
+/* CARTÕES */
+
 .card {
-    background: #FFFFFF;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px #B8CDBB;
     flex: 1;
-    max-width: 450px;
+    min-width: 0;
+    max-width: 550px;
+    padding: 32px 30px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 4px 14px rgba(27, 94, 32, 0.13);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Títulos */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(27, 94, 32, 0.18);
+}
+
+/* TÍTULOS */
+
 .card h2 {
     color: #1B5E20;
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 27px;
+    margin: 15px 0 24px;
 }
 
-/* Texto */
+/* DESCRIÇÕES */
+
 .card p {
     color: #2E7D32;
     text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 25px;
 }
 
-/* Formulários */
+/* FORMULÁRIOS */
+
 .card form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Rótulos */
+/* RÓTULOS */
+
 .card label {
     color: #1B5E20;
     font-weight: bold;
+    font-size: 16px;
     margin-top: 5px;
 }
 
-/* Campos */
+/* CAMPOS */
+
 .card input,
 .card select {
-    padding: 12px;
+    width: 100%;
+    padding: 14px 16px;
     border: 1px solid #B8CDBB;
-    border-radius: 8px;
+    border-radius: 9px;
     background: #F0F5F3;
     color: #1B5E20;
-    font-size: 15px;
+    font-size: 16px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Destaque dos campos */
 .card input:focus,
 .card select:focus {
     outline: none;
     border: 2px solid #2E7D32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.10);
 }
 
-/* Botões */
+/* BOTÕES */
+
 .card button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
     background: #2E7D32;
     color: #FFFFFF;
     border: none;
-    padding: 13px;
-    border-radius: 8px;
-    font-size: 15px;
+    border-radius: 9px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 15px;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* Efeito ao passar o mouse */
 .card button:hover {
     background: #1B5E20;
+    transform: translateY(-2px);
 }
 
-/* Efeito nos cartões */
-.card {
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+/* TABLETS E CELULARES */
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px #B8CDBB;
-}
-
-/* Fundo da página */
-body {
-    background: #F0F5F3;
-}
-
-/* Adaptação para celulares */
 @media (max-width: 768px) {
+    .banner {
+        margin: 22px auto;
+        padding: 45px 20px;
+    }
+
+    .banner h1 {
+        font-size: 26px;
+    }
+
+    .banner p {
+        font-size: 16px;
+    }
+
     .calculadoras {
         flex-direction: column;
         align-items: center;
+        gap: 22px;
     }
 
     .card {
         width: 100%;
-        max-width: 500px;
-        box-sizing: border-box;
+        max-width: 550px;
+        padding: 25px 22px;
     }
 
+    .card h2 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 480px) {
     .banner {
-        margin: 15px;
+        width: calc(100% - 24px);
+        padding: 35px 16px;
     }
 
     .banner h1 {
-        font-size: 24px;
+        font-size: 23px;
+    }
+
+    .calculadoras {
+        width: calc(100% - 24px);
+    }
+
+    .card {
+        padding: 22px 17px;
     }
 }
