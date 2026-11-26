@@ -22,15 +22,9 @@ header h1 {
     margin: 0;
 }
 
-/* MENU */
 
-header nav {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
 
-/* LINKS */
+/* LINKS DO MENU */
 
 header nav a {
     color: #ffffff;
@@ -64,6 +58,62 @@ header nav a::after {
 header nav a:hover::after {
     width: 100%;
 }
+
+/* FORMULÁRIO DE SAIR */
+
+header nav form {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* BOTÃO SAIR */
+
+header nav form button {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    padding: 8px 0;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* EFEITO HOVER DO BOTÃO */
+
+header nav form button:hover {
+    color: #39e66b;
+}
+
+/* LINHA ANIMADA DO BOTÃO */
+
+header nav form button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #39e66b;
+    transition: width 0.3s ease;
+}
+
+header nav form button:hover::after {
+    width: 100%;
+}
+
+/* ALINHAMENTO DO MENU */
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
 
 /* LOGO */
 

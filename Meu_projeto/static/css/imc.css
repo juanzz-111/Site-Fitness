@@ -320,6 +320,74 @@
     text-decoration: none;
 }
 
+
+/* =================================
+   MENSAGEM SEM RESULTADO DE IMC
+================================= */
+
 .sem-resultado {
-    margin: 30px 0;
+    text-align: center;
+    color: #65746a;
+    font-size: 16px;
+    line-height: 1.7;
+
+    background: #f3f8f4;
+    border: 1px solid #e0eee3;
+    border-radius: 10px;
+
+    padding: 22px 20px;
+    margin: 30px 0 25px;
+}
+
+/* =================================
+   BOTÃO VOLTAR AO INÍCIO
+================================= */
+
+.botao-novo-calculo {
+    display: block;
+    width: fit-content;
+
+    margin: 25px auto 0;
+    padding: 13px 28px;
+
+    background: #2e8038;
+    color: #ffffff;
+
+    text-decoration: none;
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-radius: 8px;
+    border: 1px solid #2e8038;
+
+    transition: all 0.3s ease;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+
+.botao-novo-calculo:hover {
+    background: #24672e;
+    border-color: #24672e;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 12px rgba(46, 128, 56, 0.2);
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+
+    .sem-resultado {
+        font-size: 14px;
+        padding: 18px 15px;
+    }
+
+    .botao-novo-calculo {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
 }
