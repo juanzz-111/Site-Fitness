@@ -46,5 +46,15 @@
         "altura": 1.67,
         "idade": 66,
         "sexo": "masculino"
+    },
+    {
+        "id": "ff7d7006-7dff-41c8-aae9-3dac96a11ceb",
+        "nome": "Admin 2",
+        "email": "cavalocomfome2@gmail.com",
+        "senha_hash": "pbkdf2:sha256:1000000$H9uDSOHSwAWfvgQO$5c14ffece8719174e686be1496869993dee61b2dc7285b6e215a0f605a84680d",
+        "foto_perfil": "images/default_avatar.png",
+        "data_cadastro": "2026-11-26 14:51:27",
+        "funcao": "admin",
+        "excluido": false
     }
 ]

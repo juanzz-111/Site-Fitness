@@ -132,7 +132,33 @@ Editar Perfil - Saúde & Bem-Estar
 
             </div>
 
-        </form>
+                </form>
+
+        {% if not modo_admin %}
+
+        <div class="botoes">
+
+            <form
+                method="POST"
+                action="{{ url_for('excluir_propria_conta') }}"
+                onsubmit="return confirm('Tem certeza de que deseja desativar sua conta?');"
+            >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <button type="submit" class="btn-salvar">
+                    Desativar minha conta
+                </button>
+
+            </form>
+
+        </div>
+
+        {% endif %}
 
     </div>
 

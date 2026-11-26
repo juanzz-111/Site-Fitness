@@ -295,12 +295,8 @@ def about():
     return render_template("about.html")
 
 
-# ==========================================
-# CADASTRO
-# ==========================================
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
+def processar_cadastro(modo_admin=False):
     if request.method == "POST":
         nome = request.form.get("nome", "").strip()
         email = request.form.get("email", "").strip().lower()
@@ -312,7 +308,8 @@ def register():
                 "register.html",
                 erro="Preencha todos os campos obrigatórios.",
                 nome=nome,
-                email=email
+                email=email,
+                modo_admin=modo_admin
             )
 
         if senha != confirmar_senha:
@@ -320,7 +317,8 @@ def register():
                 "register.html",
                 erro="As senhas não são iguais.",
                 nome=nome,
-                email=email
+                email=email,
+                modo_admin=modo_admin
             )
 
         usuarios = carregar_usuarios()
@@ -333,7 +331,8 @@ def register():
                 "register.html",
                 erro="Este e-mail já está cadastrado.",
                 nome=nome,
-                email=email
+                email=email,
+                modo_admin=modo_admin
             )
 
         foto_perfil, erro_foto = salvar_foto_perfil(
@@ -345,8 +344,23 @@ def register():
                 "register.html",
                 erro=erro_foto,
                 nome=nome,
-                email=email
+                email=email,
+                modo_admin=modo_admin
             )
+
+        funcao = "comum"
+
+        if modo_admin:
+            funcao = request.form.get("funcao", "comum")
+
+            if funcao not in ["comum", "admin"]:
+                return render_template(
+                    "register.html",
+                    erro="Função inválida.",
+                    nome=nome,
+                    email=email,
+                    modo_admin=True
+                )
 
         novo_usuario = {
             "id": str(uuid.uuid4()),
@@ -358,19 +372,36 @@ def register():
             ),
             "foto_perfil": foto_perfil or DEFAULT_AVATAR,
             "data_cadastro": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "funcao": "comum",
+            "funcao": funcao,
             "excluido": False
         }
 
         usuarios.append(novo_usuario)
         salvar_usuarios(usuarios)
 
+        if modo_admin:
+            return redirect(url_for("admin_dashboard"))
+
         return render_template(
             "register.html",
             sucesso="Cadastro realizado com sucesso!"
         )
 
-    return render_template("register.html")
+    return render_template(
+        "register.html",
+        modo_admin=modo_admin
+    )
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return processar_cadastro(modo_admin=False)
+
+
+@app.route("/admin/novo", methods=["GET", "POST"])
+@admin_required
+def novo_usuario_admin():
+    return processar_cadastro(modo_admin=True)
 
 
 # ==========================================
@@ -546,6 +577,51 @@ def editar_perfil():
         foto_perfil=usuario.get("foto_perfil", DEFAULT_AVATAR)
     )
 
+
+# ==========================================
+# DESATIVAR A PRÓPRIA CONTA
+# ==========================================
+
+@app.route("/excluir_conta", methods=["POST"])
+@login_required
+def excluir_propria_conta():
+    usuarios = carregar_usuarios()
+
+    usuario = next(
+        (
+            u for u in usuarios
+            if u.get("id") == session.get("user_id")
+            and not u.get("excluido", False)
+        ),
+        None
+    )
+
+    if usuario is None:
+        session.clear()
+        return redirect(url_for("login"))
+
+    # Impede a desativação do último administrador ativo.
+    if usuario.get("funcao") == "admin":
+        outros_admins_ativos = sum(
+            1 for u in usuarios
+            if u.get("funcao") == "admin"
+            and not u.get("excluido", False)
+            and u.get("id") != usuario.get("id")
+        )
+
+        if outros_admins_ativos == 0:
+            return (
+                "Não é possível desativar o último administrador ativo.",
+                403
+            )
+
+    usuario["excluido"] = True
+    salvar_usuarios(usuarios)
+
+    # Encerra a sessão após a desativação.
+    session.clear()
+
+    return redirect(url_for("inicio"))
 
 # ==========================================
 # PAINEL ADMINISTRATIVO

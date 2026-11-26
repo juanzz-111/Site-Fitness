@@ -10,7 +10,13 @@ Cadastro - Saúde & Bem-Estar
 
     <div class="cadastro-container">
 
-        <h1>Criar Nova Conta</h1>
+        <h1>
+            {% if modo_admin %}
+                Cadastrar Novo Usuário
+            {% else %}
+                Criar Nova Conta
+            {% endif %}
+        </h1>
 
         {% if erro %}
             <p class="mensagem erro">{{ erro }}</p>
@@ -20,7 +26,11 @@ Cadastro - Saúde & Bem-Estar
             <p class="mensagem sucesso">{{ sucesso }}</p>
         {% endif %}
 
-        <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
+        <form
+            method="POST"
+            action="{% if modo_admin %}{{ url_for('novo_usuario_admin') }}{% else %}{{ url_for('register') }}{% endif %}"
+            enctype="multipart/form-data"
+        >
 
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -104,25 +114,43 @@ Cadastro - Saúde & Bem-Estar
 
             </div>
 
-            <div class="campo">
+            <!-- FUNÇÃO DISPONÍVEL SOMENTE PARA ADMINISTRADORES -->
+            {% if modo_admin %}
 
-                <label for="funcao">Função</label>
+                <div class="campo">
 
-                <select id="funcao" name="funcao">
-                    <option value="comum" selected>Comum</option>
-                </select>
+                    <label for="funcao">Função</label>
 
-            </div>
+                    <select id="funcao" name="funcao" required>
+                        <option value="comum" selected>Comum</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+
+                </div>
+
+            {% endif %}
 
             <button type="submit" class="btn-cadastrar">
-                Cadastrar Usuário
+                {% if modo_admin %}
+                    Cadastrar Usuário
+                {% else %}
+                    Criar Conta
+                {% endif %}
             </button>
 
         </form>
 
         <div class="login-link">
-            Já possui conta?
-            <a href="{{ url_for('login') }}">Entrar</a>
+
+            {% if modo_admin %}
+                <a href="{{ url_for('admin_dashboard') }}">
+                    Voltar ao Painel Administrativo
+                </a>
+            {% else %}
+                Já possui conta?
+                <a href="{{ url_for('login') }}">Entrar</a>
+            {% endif %}
+
         </div>
 
     </div>
